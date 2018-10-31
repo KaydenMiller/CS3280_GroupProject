@@ -112,13 +112,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Search\clsSearchSQL.txt" />
+    <Compile Include="Search\clsSearchSQL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Main\clsMainSQL.txt" />
+    <Compile Include="Main\clsMainSQL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Items\clsItemsSQL.txt" />
+    <Compile Include="Items\clsItemsSQL.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
