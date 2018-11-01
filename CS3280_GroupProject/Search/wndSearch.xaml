@@ -7,6 +7,67 @@
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800">
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Invoice Search" HorizontalAlignment="Center"
+                   FontSize="25" FontWeight="Bold"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <DataGrid x:Name="InvoiceDataGrid"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False">
+                    
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Filter Options" HorizontalAlignment="Center"
+                           FontSize="20" FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                Margin="5">
+                        <Label Content="Invoice #:"/>
+                        <ListBox Width="150">
+
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                Margin="5">
+                        <Label Content="Invoice Date:"/>
+                        <ListBox Width="150">
+
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                Margin="5">
+                        <Label Content="Total Charge:"/>
+                        <ListBox Width="150">
+
+                        </ListBox>
+                    </StackPanel>
+
+                    <Button x:Name="btnFilterResults" Content="FILTER"
+                            FontSize="15"
+                            Margin="25 5"/>
+                    <Button x:Name="btnClearSelection" Content="CLEAR SELECTION"
+                            FontSize="15"
+                            Margin="25 5"/>
+                    <Button x:Name="btnSelectInvoice" Content="SELECT INVOICE"
+                            FontSize="15"
+                            Margin="25 5"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
