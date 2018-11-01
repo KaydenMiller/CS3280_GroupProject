@@ -66,7 +66,9 @@
     <Compile Include="Main\wndMain.xaml.cs">
       <DependentUpon>wndMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Search\clsSearchLogic.cs" />
+    <Compile Include="Search\ViewModel\SearchViewModel.cs" />
     <Compile Include="Search\wndSearch.xaml.cs">
       <DependentUpon>wndSearch.xaml</DependentUpon>
     </Compile>
