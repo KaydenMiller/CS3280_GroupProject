@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CS3280_GroupProject.Models;
 
 namespace CS3280_GroupProject.Search.ViewModel
 {
@@ -12,5 +13,6 @@ namespace CS3280_GroupProject.Search.ViewModel
     /// </summary>
     public class SearchViewModel
     {
+
     }
 }
