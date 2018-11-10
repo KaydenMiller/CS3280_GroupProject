@@ -24,7 +24,6 @@ namespace CS3280_GroupProject.Main
         {
             InitializeComponent();
 			wndItems items = new wndItems();
-			items.Owner = this;
 			items.ShowDialog();
         }
     }
