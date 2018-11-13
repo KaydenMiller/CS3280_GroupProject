@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS3280_GroupProject.Models
+namespace DataAccessLayer
 {
     /// <summary>
-    /// This is all information that will represent an Invoice Record in
-    /// the Database.
+    /// Interface for UnitOfWork pattern
     /// </summary>
-    public class Invoice
+    interface IUnitOfWork : IDisposable
     {
+        void Complete();
     }
 }
