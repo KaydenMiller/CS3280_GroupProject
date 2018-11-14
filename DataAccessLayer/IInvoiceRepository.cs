@@ -9,6 +9,7 @@ namespace DataAccessLayer
 {
     public interface IInvoiceRepository : IRepository<Invoice>
     {
-
+        IEnumerable<Invoice> GetInvoicesByDate(DateTime dateTime);
+        IEnumerable<Invoice> GetInvoicesByTotalCost(int charge);
     }
 }
