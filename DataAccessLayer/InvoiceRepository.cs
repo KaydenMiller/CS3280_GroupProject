@@ -18,12 +18,23 @@ namespace DataAccessLayer
 
         public void Add(Invoice item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"INSERT INTO Invoices (InvoiceNum, InvoiceDate, TotalCost) VALUES({item.ID}, {item.Date}, {item.TotalCost})";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void AddRange(IEnumerable<Invoice> items)
         {
-            throw new NotImplementedException();
+            foreach (Invoice item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO Invoices (InvoiceNum, InvoiceDate, TotalCost) VALUES({item.ID}, {item.Date}, {item.TotalCost})";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public IEnumerable<Invoice> Find(Expression<Func<Invoice, bool>> predicate)
@@ -33,27 +44,66 @@ namespace DataAccessLayer
 
         public Invoice Get(int id)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM Invoices WHERE InvoiceNum = {id}";
+                return ToList(command).First();
+            }
         }
 
         public IEnumerable<Invoice> GetAll()
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Invoices";
+                return ToList(command);
+            }
+        }
+
+        public IEnumerable<Invoice> GetInvoicesByDate(DateTime dateTime)
+        {
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM Invoices WHERE InvoiceDate = {dateTime}";
+                return ToList(command);
+            }
+        }
+
+        public IEnumerable<Invoice> GetInvoicesByTotalCost(int charge)
+        {
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM Invoices WHERE TotalCost = {charge}";
+                return ToList(command);
+            }
         }
 
         public void Remove(Invoice item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"DELETE FROM Invoices WHERE InvoiceNum = {item.ID}";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void RemoveRange(IEnumerable<Invoice> items)
         {
-            throw new NotImplementedException();
+            foreach (Invoice item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM Invoices WHERE InvoiceNum = {item.ID}";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         protected override void Map(IDataRecord record, Invoice entity)
         {
-            throw new NotImplementedException();
+            entity.ID = (int)record["InvoiceNum"];
+            entity.Date = (DateTime)record["InvoiceDate"];
+            entity.TotalCost = (int)record["TotalCost"];
         }
     }
 }
