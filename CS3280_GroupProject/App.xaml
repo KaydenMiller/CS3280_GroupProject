@@ -4,6 +4,24 @@
              xmlns:local="clr-namespace:CS3280_GroupProject"
              StartupUri="Main/wndMain.xaml">
     <Application.Resources>
-         
+        <!-- Standard Application Button for project -->
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="25 5"/>
+        </Style>
+        
+        <!-- Page Title Style -->
+        <Style x:Key="TextBlock_Page_Title" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+        <!-- Subsection Header Style -->
+        <Style x:Key="TextBlock_SubHeader_Title" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
     </Application.Resources>
 </Application>
