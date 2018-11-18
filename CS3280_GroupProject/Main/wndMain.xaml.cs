@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CS3280_GroupProject.Items;
 
 namespace CS3280_GroupProject.Main
 {
@@ -22,6 +23,8 @@ namespace CS3280_GroupProject.Main
         public wndMain()
         {
             InitializeComponent();
+			wndItems items = new wndItems();
+			items.ShowDialog();
         }
     }
 }
