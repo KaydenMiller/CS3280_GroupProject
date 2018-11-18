@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
+    /// <summary>
+    /// Invoice Repository object where the acutal SQL Database access funcitons
+    /// will be located
+    /// </summary>
     class InvoiceRepository : Repository<Invoice>, IInvoiceRepository
     {
         public InvoiceRepository(AdoNetContext context) : base(context)
@@ -16,6 +20,10 @@ namespace DataAccessLayer
 
         }
 
+        /// <summary>
+        /// Adds an invoice to the database
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(Invoice item)
         {
             using (var command = Context.CreateCommand())
@@ -25,6 +33,10 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Adds a range of invoices to the database
+        /// </summary>
+        /// <param name="items"></param>
         public void AddRange(IEnumerable<Invoice> items)
         {
             foreach (Invoice item in items)
@@ -37,11 +49,21 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Not used at the moment.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public IEnumerable<Invoice> Find(Expression<Func<Invoice, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets an invoice by the invoice id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Invoice Get(int id)
         {
             using (var command = Context.CreateCommand())
@@ -51,6 +73,10 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Gets every invoice by the id
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Invoice> GetAll()
         {
             using (var command = Context.CreateCommand())
@@ -60,6 +86,11 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Gets the invoice by the date
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
         public IEnumerable<Invoice> GetInvoicesByDate(DateTime dateTime)
         {
             using (var command = Context.CreateCommand())
@@ -69,6 +100,11 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Gets the invoices by the total cost on the invoice
+        /// </summary>
+        /// <param name="charge"></param>
+        /// <returns></returns>
         public IEnumerable<Invoice> GetInvoicesByTotalCost(int charge)
         {
             using (var command = Context.CreateCommand())
@@ -78,16 +114,10 @@ namespace DataAccessLayer
             }
         }
 
-        public IEnumerable<Invoice> GetInvoicesByDate(DateTime dateTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Invoice> GetInvoicesByTotalCost(int charge)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Removes an invoice from the database
+        /// </summary>
+        /// <param name="item"></param>
         public void Remove(Invoice item)
         {
             using (var command = Context.CreateCommand())
@@ -97,6 +127,10 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Remove a range of invoice from the database
+        /// </summary>
+        /// <param name="items"></param>
         public void RemoveRange(IEnumerable<Invoice> items)
         {
             foreach (Invoice item in items)
@@ -109,6 +143,11 @@ namespace DataAccessLayer
             }
         }
 
+        /// <summary>
+        /// Maps the database records to an entity
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="entity"></param>
         protected override void Map(IDataRecord record, Invoice entity)
         {
             entity.ID = (int)record["InvoiceNum"];

@@ -22,11 +22,5 @@ namespace DataAccessLayer
 
         void Remove(TEntity item);
         void RemoveRange(IEnumerable<TEntity> items);
-
-        //void Add(TEntity item);
-        //void Remove(TEntity item);
-        //TEntity FindByID(int id);
-        //IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-        //IEnumerable<TEntity> FindAll();
     }
 }
