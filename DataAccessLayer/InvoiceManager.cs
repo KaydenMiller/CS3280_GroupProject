@@ -21,6 +21,6 @@ namespace DataAccessLayer
         /// <summary>
         /// The repository class for accessing invoices
         /// </summary>
-        public readonly static IInvoiceRepository invoiceRepository = new InvoiceRepository(context);
+        public readonly static IInvoiceRepository InvoiceRepository = new InvoiceRepository(context);
     }
 }
