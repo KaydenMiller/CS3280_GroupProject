@@ -13,10 +13,6 @@ namespace CS3280_GroupProject.Search.ViewModel
     /// </summary>
     public class SearchViewModel
     {
-        public string InvoiceNumber { get; set; }
-        public string InvoiceDate { get; set; }
-        public string TotalCharge { get; set; }
-
-        public List<Invoice> MyProperty { get; set; }
+        public List<Invoice> Invoice { get; set; }
     }
 }
