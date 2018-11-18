@@ -78,6 +78,16 @@ namespace DataAccessLayer
             }
         }
 
+        public IEnumerable<Invoice> GetInvoicesByDate(DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Invoice> GetInvoicesByTotalCost(int charge)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(Invoice item)
         {
             using (var command = Context.CreateCommand())
