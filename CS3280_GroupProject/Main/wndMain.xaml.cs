@@ -26,5 +26,25 @@ namespace CS3280_GroupProject.Main
 			wndItems items = new wndItems();
 			items.ShowDialog();
         }
+
+        private void UpdateInventory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchInvoices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NewInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

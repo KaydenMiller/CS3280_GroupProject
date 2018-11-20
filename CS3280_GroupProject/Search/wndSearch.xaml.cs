@@ -21,7 +21,28 @@ namespace CS3280_GroupProject.Search
     {
         public wndSearch()
         {
+            DataContext = new ViewModel.SearchViewModel();
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Event handler for when the search window is finished loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// The filter button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFilterResults_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
