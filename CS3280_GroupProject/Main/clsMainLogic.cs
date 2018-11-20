@@ -473,17 +473,17 @@ namespace CS3280_GroupProject.Main
         /// This method is for checking error for getting invoice number
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
-        //public void SetInvoiceNum(String k)
-        //{
-        //    try
-        //    {
-        //        invoiceNum = k;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        //    }
-        //}
+        public void setInvoiceNum(String k)
+        {
+            try
+            {
+                invoiceNum = k;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
     }
 }

@@ -19,9 +19,32 @@ namespace CS3280_GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+
+        /// <summary>
+        /// this variable holds the invoice selected from the search form
+        /// please don't forget to Set the string variables (selectedInvoice = ) to Selected 
+        /// item when the select button is clicked on
+        /// </summary>
+        private string selectedInvoice = "";
+
         public wndSearch()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// the invoice Choice get, set method
+        /// </summary>
+        public string selected_Invoice
+        {
+            get
+            {
+                return selectedInvoice;
+            }
+            set
+            {
+                selectedInvoice = value;
+            }
         }
     }
 }
