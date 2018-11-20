@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3280_GroupProject.Search"
+        xmlns:view="clr-namespace:CS3280_GroupProject.Search.ViewModel"
         mc:Ignorable="d"
-        Title="wndSearch" Height="450" Width="800">
+        Title="wndSearch" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Window Style for filter property selection -->
         <Style x:Key="StackPanel_Horizontal_Property" TargetType="StackPanel">
@@ -14,6 +16,9 @@
             <Setter Property="Margin" Value="5"/>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <view:SearchViewModel/>
+    </Window.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -47,24 +52,32 @@
 
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Invoice #:"/>
-                        <ListBox Width="150">
-
-                        </ListBox>
+                        <ComboBox Width="150"
+                                  ItemsSource="{Binding Invoices}"
+                                  SelectedItem="{Binding FilteredInvoices}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding InvoiceID}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
+                    
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Invoice Date:"/>
-                        <ListBox Width="150">
+                        <ComboBox Width="150">
 
-                        </ListBox>
+                        </ComboBox>
                     </StackPanel>
+                    
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Total Charge:"/>
-                        <ListBox Width="150">
+                        <ComboBox Width="150">
 
-                        </ListBox>
+                        </ComboBox>
                     </StackPanel>
 
-                    <Button x:Name="btnFilterResults" Content="FILTER"/>
+                    <Button x:Name="btnFilterResults" Content="FILTER" Click="btnFilterResults_Click"/>
                     <Button x:Name="btnClearSelection" Content="CLEAR SELECTION"/>
                     <Button x:Name="btnSelectInvoice" Content="SELECT INVOICE"/>
                 </StackPanel>

@@ -29,10 +29,12 @@ namespace CS3280_GroupProject.Search
 
         public wndSearch()
         {
+            DataContext = new ViewModel.SearchViewModel();
             InitializeComponent();
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// the invoice Choice get, set method
         /// </summary>
         public string selected_Invoice
@@ -45,6 +47,25 @@ namespace CS3280_GroupProject.Search
             {
                 selectedInvoice = value;
             }
+=======
+        /// Event handler for when the search window is finished loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// The filter button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFilterResults_Click(object sender, RoutedEventArgs e)
+        {
+
+>>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
         }
     }
 }

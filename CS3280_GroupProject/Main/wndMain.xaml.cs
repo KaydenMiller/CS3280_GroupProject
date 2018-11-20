@@ -19,9 +19,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+<<<<<<< HEAD
 using System.Reflection;
 using CS3280_GroupProject.Items;
 using CS3280_GroupProject.Search;
+=======
+using CS3280_GroupProject.Items;
+>>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
 
 
 namespace CS3280_GroupProject.Main
@@ -30,6 +34,7 @@ namespace CS3280_GroupProject.Main
     /// Interaction logic for wndMain.xaml
     /// </summary>
     public partial class wndMain : Window
+<<<<<<< HEAD
     {
         /// <summary>
         /// using variable to create instance of the clsMainLogic class.
@@ -39,6 +44,9 @@ namespace CS3280_GroupProject.Main
         /// <summary>
         /// This constructor initialises form and fill the grid with the hightest invoice number
         /// </summary>
+=======
+    {     
+>>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
         public wndMain()
         {
             try
@@ -425,6 +433,26 @@ namespace CS3280_GroupProject.Main
                 CheckingErrors(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
+
+        private void UpdateInventory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Click_Search(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NewInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
