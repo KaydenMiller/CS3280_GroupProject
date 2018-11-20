@@ -63,10 +63,8 @@
     <Compile Include="Items\wndItems.xaml.cs">
       <DependentUpon>wndItems.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\clsDataAccess.cs" />
     <Compile Include="Main\clsMainLogic.cs" />
-    <Compile Include="Main\newInvoice.xaml.cs">
-      <DependentUpon>newInvoice.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\wndMain.xaml.cs">
       <DependentUpon>wndMain.xaml</DependentUpon>
     </Compile>
@@ -104,10 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Items\wndItems.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Main\newInvoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

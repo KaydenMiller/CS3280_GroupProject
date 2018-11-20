@@ -1,4 +1,12 @@
-﻿using System;
+﻿/********************************************************************************************
+ * CS3280_GroupProject/Main
+ * Chukwuebuka Odu
+ * 
+ * This program is part of the CS3280_GroupProject. It houses the logic of the main window
+ *******************************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +20,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace CS3280_GroupProject.Main
 {
     /// <summary>
     /// Interaction logic for wndMain.xaml
     /// </summary>
     public partial class wndMain : Window
-    {
+    {     
+        
+
         public wndMain()
         {
             InitializeComponent();
