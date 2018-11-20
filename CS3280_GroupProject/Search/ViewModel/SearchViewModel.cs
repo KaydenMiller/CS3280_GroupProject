@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer;
+using DataAccessLayer;
 
 namespace CS3280_GroupProject.Search.ViewModel
 {
@@ -11,12 +14,31 @@ namespace CS3280_GroupProject.Search.ViewModel
     /// This object stores the required information to be displayed
     /// onto the Search Window.
     /// </summary>
-    public class SearchViewModel
+    public class SearchViewModel : ViewModelBase
     {
-        public string InvoiceNumber { get; set; }
-        public string InvoiceDate { get; set; }
-        public string TotalCharge { get; set; }
+        public SearchViewModel()
+        {
+            //Invoices = InvoiceManager.InvoiceRepository.GetAll().ToList();
+        }
 
-        public List<Invoice> MyProperty { get; set; }
+        private List<Invoice> _invoices;
+        public List<Invoice> Invoices
+        {
+            get { return _invoices; }
+            set
+            {
+                SetProperty(ref _invoices, value);
+            }
+        }
+
+        private List<Invoice> _filteredInvoices;
+        public List<Invoice> FilteredInvoices
+        {
+            get { return _filteredInvoices; }
+            set
+            {
+                SetProperty(ref _filteredInvoices, value);
+            }
+        }
     }
 }
