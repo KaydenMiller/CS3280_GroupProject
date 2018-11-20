@@ -18,52 +18,109 @@ namespace DataAccessLayer
 
         public void Add(Item item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) VALUES({item.ItemCode}, {item.Description}, {item.Cost})";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void AddRange(IEnumerable<Item> items)
         {
-            throw new NotImplementedException();
+            foreach (Item item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) VALUES({item.ItemCode}, {item.Description}, {item.Cost})";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public IEnumerable<Item> Find(Expression<Func<Item, bool>> predicate)
         {
-            throw new NotImplementedException();
+            List<Item> output = new List<Item>();
+
+            foreach (Item item in GetAll())
+            {
+                if (predicate.Compile().Invoke(item))
+                {
+                    output.Add(item);
+                }
+            }
+
+            return output;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">ASCII value of the ItemCode character</param>
+        /// <returns></returns>
         public Item Get(int id)
         {
-            throw new NotImplementedException();
+            string codeValue = ((char)id).ToString();
+
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM ItemDesc WHERE ItemCode = {codeValue}";
+                return ToList(command).First();
+            }
         }
 
         public IEnumerable<Item> GetAll()
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM ItemDesc";
+                return ToList(command);
+            }
         }
 
         public IEnumerable<Item> GetItemByDescription(string desc)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM ItemDesc WHERE ItemDesc = '{desc}'";
+                return ToList(command);
+            }
         }
 
         public IEnumerable<Item> GetItemByExactCost(float cost)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM ItemDesc WHERE Cost = {cost}";
+                return ToList(command);
+            }
         }
 
         public void Remove(Item item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"DELETE FROM ItemDesc WHERE ItemCode = {item.ItemCode}";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void RemoveRange(IEnumerable<Item> items)
         {
-            throw new NotImplementedException();
+            foreach (Item item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM ItemDesc WHERE ItemCode = {item.ItemCode}";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         protected override void Map(IDataRecord record, Item entity)
         {
-            throw new NotImplementedException();
+            entity.ItemCode = (string)record["ItemCode"];
+            entity.Description = (string)record["ItemDesc"];
+            entity.Cost = (float)record["Cost"];
         }
     }
 }

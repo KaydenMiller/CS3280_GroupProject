@@ -50,13 +50,23 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Not used at the moment.
+        /// Returns all values that match the input predicate
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
         public IEnumerable<Invoice> Find(Expression<Func<Invoice, bool>> predicate)
         {
-            throw new NotImplementedException();
+            List<Invoice> output = new List<Invoice>();
+
+            foreach (Invoice invoice in GetAll())
+            {
+                if (predicate.Compile().Invoke(invoice))
+                {
+                    output.Add(invoice);
+                }
+            }
+
+            return output;
         }
 
         /// <summary>

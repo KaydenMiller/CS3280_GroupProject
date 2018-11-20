@@ -13,6 +13,13 @@ namespace DataAccessLayer
     public interface ILineItemRepository
     {
         /// <summary>
+        /// Will retrieve all line items that are part of invoiceID
+        /// </summary>
+        /// <param name="invoiceID"></param>
+        /// <returns></returns>
+        IEnumerable<LineItem> GetLineItemsByInvoiceID(int invoiceID);
+
+        /// <summary>
         /// Will retrieve all line items that contain the item code
         /// </summary>
         /// <param name="ItemCode"></param>

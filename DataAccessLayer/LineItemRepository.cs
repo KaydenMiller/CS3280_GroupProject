@@ -17,19 +17,45 @@ namespace DataAccessLayer
 
         public void Add(LineItem item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) VALUES({item.Invoice_ID}, {item.LineItemNumber}, {item.ItemCode})";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void AddRange(IEnumerable<LineItem> items)
         {
-            throw new NotImplementedException();
+            foreach (LineItem item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) VALUES({item.Invoice_ID}, {item.LineItemNumber}, {item.ItemCode})";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public IEnumerable<LineItem> Find(Expression<Func<LineItem, bool>> predicate)
         {
-            throw new NotImplementedException();
+            List<LineItem> output = new List<LineItem>();
+
+            foreach (LineItem lineItem in GetAll())
+            {
+                if (predicate.Compile().Invoke(lineItem))
+                {
+                    output.Add(lineItem);
+                }
+            }
+
+            return output;
         }
 
+        /// <summary>
+        /// The database does not have an id field for LineItem DO NOT USE
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public LineItem Get(int id)
         {
             throw new NotImplementedException();
@@ -37,32 +63,66 @@ namespace DataAccessLayer
 
         public IEnumerable<LineItem> GetAll()
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM LineItems";
+                return ToList(command);
+            }
+        }
+
+        public IEnumerable<LineItem> GetLineItemsByInvoiceID(int invoiceID)
+        {
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM LineItems WHERE InvoiceNum = {invoiceID}";
+                return ToList(command);
+            }
         }
 
         public IEnumerable<LineItem> GetLineItemsByItemCode(string ItemCode)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM LineItems WHERE ItemCode = {ItemCode}";
+                return ToList(command);
+            }
         }
 
         public IEnumerable<LineItem> GetLineItemsByLineNumber(int line)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"SELECT * FROM LineItems WHERE LineItemNumber = {line}";
+                return ToList(command);
+            }
         }
 
         public void Remove(LineItem item)
         {
-            throw new NotImplementedException();
+            using (var command = Context.CreateCommand())
+            {
+                command.CommandText = $"DELETE FROM LineItems WHERE InvoiceNum = {item.Invoice_ID} AND ItemCode = {item.ItemCode}";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void RemoveRange(IEnumerable<LineItem> items)
         {
-            throw new NotImplementedException();
+            foreach (LineItem item in items)
+            {
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM LineItems WHERE InvoiceNum = {item.Invoice_ID} AND ItemCode = {item.ItemCode}";
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         protected override void Map(IDataRecord record, LineItem entity)
         {
-            throw new NotImplementedException();
+            entity.Invoice_ID = (int)record["InvoiceNum"];
+            entity.ItemCode = (string)record["ItemCode"];
+            entity.LineItemNumber = (int)record["LineItemNumber"];
         }
     }
 }
