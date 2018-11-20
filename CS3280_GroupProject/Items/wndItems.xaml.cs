@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace CS3280_GroupProject.Items
 {
     /// <summary>
@@ -19,9 +20,30 @@ namespace CS3280_GroupProject.Items
     /// </summary>
     public partial class wndItems : Window
     {
+        /// <summary>
+        /// this variable lets the main know if any change occured
+        /// please remember to set isChanged = true; 
+        /// if InsertButton, UpdateButton, DeleteButton is clicked on
+        /// </summary>
+        private bool isChanged = false; 
+
         public wndItems()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Main window can access isChanged bool variable 
+        /// </summary>
+        public bool IsChanged
+        {
+            get
+            {
+                return isChanged;
+            }
+        }
+
+        
+
     }
 }

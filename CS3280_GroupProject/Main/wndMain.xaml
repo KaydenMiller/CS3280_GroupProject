@@ -10,31 +10,31 @@
         <Grid.Background>
             <ImageBrush ImageSource="image/backg.png"/>
         </Grid.Background>
-        
         <Menu x:Name="menu" HorizontalAlignment="Left" Height="19" Margin="0,-1,0,0" VerticalAlignment="Top" Width="792" Background="#FFD1A9A7">
-            <MenuItem Header="File" Width="53" FontSize="14" RenderTransformOrigin="0.34,0.526">
-                <MenuItem x:Name="UpdateInventory" Header="Item Inventory" Click="UpdateInventory_Click" Background="#FFC99A9A" FontWeight="Bold" FontSize="13" Foreground="#FF246264"/>
+            <MenuItem Header="  File" Width="68" FontSize="14" RenderTransformOrigin="0.34,0.526">
+                <MenuItem x:Name="ItemInventory" Header="Item Inventory" Click="ItemInventory_Click" Background="#FFC99A9A" FontWeight="Bold" FontSize="13" Foreground="#FF246264"/>
                 <MenuItem x:Name="SearchInvoices" Header="Search Invoices" Click="Btn_Click_Search" Background="#FFCB9999" Foreground="#FF1E615E" FontWeight="Bold" FontSize="13" />
                 <Separator Background="#FFCB9D9D" />
                 <MenuItem x:Name="Exit" Header="_Exit" Click="Exit_Click" Background="#FFD39494" FontWeight="Bold" FontSize="13" Foreground="#FF1D6A67" />
             </MenuItem>
         </Menu>
-        
-        <DatePicker HorizontalAlignment="Left" Margin="180,109,0,0" VerticalAlignment="Top" Width="138"/>
-        <Button x:Name="saveBut" Content="Save Invoice" HorizontalAlignment="Left" Margin="169,305,0,0" VerticalAlignment="Top" Width="92" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052"/>
+        <DatePicker x:Name="datepicker" HorizontalAlignment="Left" Margin="180,109,0,0" VerticalAlignment="Top" Width="138"/>
+        <Button x:Name="saveBut" Content="Save Invoice" HorizontalAlignment="Left" Margin="169,300,0,0" VerticalAlignment="Top" Width="92" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052" Click="saveBut_Click"/>
         <Label x:Name="titlelabel" Content="Miller's Jewelry Store" HorizontalAlignment="Left" Margin="298,35,0,0" VerticalAlignment="Top" Width="199" FontSize="20" Height="32" FontStyle="Italic" FontWeight="Bold" FontFamily="Tempus Sans ITC"/>
-        <DataGrid x:Name="currInvoiceDataGrid" HorizontalAlignment="Left" Height="253" Margin="382,111,0,0" VerticalAlignment="Top" Width="322" Background="#FFFBFBDA"/>
+        <DataGrid x:Name="currInvoiceDataGrid" HorizontalAlignment="Left" Height="248" Margin="382,111,0,0" VerticalAlignment="Top" Width="322" Background="#FFFBFBDA"/>
         <Label x:Name="Invoicelabel" Content="Invoice #:" HorizontalAlignment="Left" Margin="101,75,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="datelabel" Content="Date:" HorizontalAlignment="Left" Margin="102,104,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label x:Name="tatallabel" Content="Order Total:" HorizontalAlignment="Left" Margin="382,72,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label x:Name="InvoiceNoBox" Content="5045" HorizontalAlignment="Left" Margin="180,76,0,0" VerticalAlignment="Top" Width="44" Height="25" FontSize="13" FontWeight="Bold" Background="#FFF0EECA"/>
-        <Label x:Name="orderTotalBox" Content="$500" HorizontalAlignment="Left" Margin="489,72,0,0" VerticalAlignment="Top" Width="47" Height="25" FontSize="13" FontWeight="Bold" Background="#FFE8EAC5"/>
+        <Label x:Name="tatallabel" Content="Order Total:" HorizontalAlignment="Left" Margin="513,72,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+        <Label x:Name="InvoiceNoBox" Content="" HorizontalAlignment="Left" Margin="180,75,0,0" VerticalAlignment="Top" Width="44" Height="25" FontSize="13" FontWeight="Bold" Background="#FFF0EECA"/>
+        <Label x:Name="orderTotalBox" Content="$500" HorizontalAlignment="Left" Margin="620,73,0,0" VerticalAlignment="Top" Width="59" Height="25" FontSize="13" FontWeight="Bold" Background="#FFE8EAC5"/>
         <Label x:Name="addItemLabel" Content="Add new item to order" HorizontalAlignment="Left" Margin="101,143,0,0" VerticalAlignment="Top" Width="151" FontSize="14"/>
-        <ComboBox x:Name="itemsListcomboBox" HorizontalAlignment="Left" Margin="101,177,0,0" VerticalAlignment="Top" Width="231"/>
-        <Button x:Name="addItemButton" Content="Add Item" HorizontalAlignment="Left" Margin="102,240,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.9,0.9" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052"/>
-        <Button x:Name="removeItembutton" Content="Remove Item" HorizontalAlignment="Left" Margin="251,240,0,0" VerticalAlignment="Top" Width="93" Foreground="#FFDECBCB" Background="#FF343A09" BorderBrush="#FFD5E493" RenderTransformOrigin="0.571,-1.005" Height="24"/>
-        <Button x:Name="deleteIvoiceButton" Content="Delete Invoice" HorizontalAlignment="Left" Margin="469,369,0,0" VerticalAlignment="Top" Width="101" Foreground="#FFC19B9B" Background="#FF292B02" BorderBrush="#FFA29E4F" RenderTransformOrigin="0.5,0.5"/>
-        <Button x:Name="editButton" Content="Edit Invoice" HorizontalAlignment="Left" Margin="251,369,0,0" VerticalAlignment="Top" Width="95" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052"/>
-        <Button x:Name="newInvoiceButton" Content="New Invoice" HorizontalAlignment="Left" Margin="102,369,0,0" VerticalAlignment="Top" Width="98" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052"/>
+        <ComboBox x:Name="itemsListcomboBox" HorizontalAlignment="Left" Margin="101,177,0,0" VerticalAlignment="Top" Width="231" SelectionChanged="selectItemCombo"/>
+        <Button x:Name="addItemButton" Content="Add Item" HorizontalAlignment="Left" Margin="102,235,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.9,0.9" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052" Click="addItemButton_Click"/>
+        <Button x:Name="removeItembutton" Content="Remove Item" HorizontalAlignment="Left" Margin="251,235,0,0" VerticalAlignment="Top" Width="95" Foreground="#FFDECBCB" Background="#FF343A09" BorderBrush="#FFD5E493" RenderTransformOrigin="0.571,-1.005" Height="24" Click="removeItembutton_Click"/>
+        <Button x:Name="deleteIvoiceButton" Content="Delete Invoice" HorizontalAlignment="Left" Margin="469,364,0,0" VerticalAlignment="Top" Width="101" Foreground="#FFC19B9B" Background="#FF292B02" BorderBrush="#FFA29E4F" RenderTransformOrigin="0.5,0.5" Click="deleteIvoiceButton_Click"/>
+        <Button x:Name="editButton" Content="Edit Invoice" HorizontalAlignment="Left" Margin="251,364,0,0" VerticalAlignment="Top" Width="95" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052" Click="editButton_Click"/>
+        <Button x:Name="newInvoiceButton" Content="New Invoice" HorizontalAlignment="Left" Margin="102,364,0,0" VerticalAlignment="Top" Width="98" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052" Click="newInvoiceButton_Click"/>
+        <Label x:Name="itemCostLable" Content="Item Cost:" HorizontalAlignment="Left" Margin="355,72,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+        <Label x:Name="itemCost" Content="" HorizontalAlignment="Left" Margin="437,72,0,0" VerticalAlignment="Top"  FontSize="13" FontWeight="Bold" Background="#FFF0EECA" Width="39"/>
     </Grid>
 </Window>
