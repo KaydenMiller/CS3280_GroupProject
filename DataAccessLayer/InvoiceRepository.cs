@@ -13,7 +13,7 @@ namespace DataAccessLayer
     /// Invoice Repository object where the acutal SQL Database access funcitons
     /// will be located
     /// </summary>
-    class InvoiceRepository : Repository<Invoice>, IInvoiceRepository
+    class InvoiceRepository : Repository<Invoice>, IRepository<Invoice>, IInvoiceRepository
     {
         public InvoiceRepository(AdoNetContext context) : base(context)
         {

@@ -11,7 +11,7 @@ namespace DataAccessLayer
     /// <summary>
     /// Interface to represent the contract for specialized Items Repository Methods
     /// </summary>
-    public interface IItemsRepository
+    public interface IItemRepository
     {
         /// <summary>
         /// Will retrieve any item with the EXACT description entered.

@@ -20,8 +20,18 @@ namespace DataAccessLayer
         private readonly static AdoNetContext context = new AdoNetContext(connectionString);
 
         /// <summary>
-        /// The repository class for accessing invoices
+        /// The access point for the Invoice Repository
         /// </summary>
         public readonly static IInvoiceRepository InvoiceRepository = new InvoiceRepository(context);
+
+        /// <summary>
+        /// The access point for the Item Repository
+        /// </summary>
+        public readonly static IItemRepository ItemRepository = new ItemRepository(context);
+
+        /// <summary>
+        /// The access point for the Line Item Repository
+        /// </summary>
+        public readonly static ILineItemRepository LineItemRepository = new LineItemRepository(context);
     }
 }

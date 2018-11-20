@@ -9,59 +9,58 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    class ItemRepository : Repository<Item>, IRepository<Item>, IItemRepository
+    class LineItemRepository : Repository<LineItem>, IRepository<LineItem>, ILineItemRepository
     {
-        public ItemRepository(AdoNetContext context) : base(context)
+        public LineItemRepository(AdoNetContext context) : base(context)
         {
-
         }
 
-        public void Add(Item item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddRange(IEnumerable<Item> items)
+        public void Add(LineItem item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Item> Find(Expression<Func<Item, bool>> predicate)
+        public void AddRange(IEnumerable<LineItem> items)
         {
             throw new NotImplementedException();
         }
 
-        public Item Get(int id)
+        public IEnumerable<LineItem> Find(Expression<Func<LineItem, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Item> GetAll()
+        public LineItem Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Item> GetItemByDescription(string desc)
+        public IEnumerable<LineItem> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Item> GetItemByExactCost(float cost)
+        public IEnumerable<LineItem> GetLineItemsByItemCode(string ItemCode)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Item item)
+        public IEnumerable<LineItem> GetLineItemsByLineNumber(int line)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveRange(IEnumerable<Item> items)
+        public void Remove(LineItem item)
         {
             throw new NotImplementedException();
         }
 
-        protected override void Map(IDataRecord record, Item entity)
+        public void RemoveRange(IEnumerable<LineItem> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void Map(IDataRecord record, LineItem entity)
         {
             throw new NotImplementedException();
         }
