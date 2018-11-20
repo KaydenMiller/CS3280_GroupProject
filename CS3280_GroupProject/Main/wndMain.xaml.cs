@@ -29,13 +29,9 @@ namespace CS3280_GroupProject.Main
     /// </summary>
     public partial class wndMain : Window
     {     
-        
-
         public wndMain()
         {
             InitializeComponent();
-			wndItems items = new wndItems();
-			items.ShowDialog();
         }
 
         private void UpdateInventory_Click(object sender, RoutedEventArgs e)
@@ -43,7 +39,7 @@ namespace CS3280_GroupProject.Main
 
         }
 
-        private void SearchInvoices_Click(object sender, RoutedEventArgs e)
+        private void Btn_Click_Search(object sender, RoutedEventArgs e)
         {
 
         }
