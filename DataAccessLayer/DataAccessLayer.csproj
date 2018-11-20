@@ -49,6 +49,7 @@
     <Compile Include="AdoNetContext.cs" />
     <Compile Include="AdoNetUnitOfWork.cs" />
     <Compile Include="IInvoiceRepository.cs" />
+    <Compile Include="IItemsrepository.cs" />
     <Compile Include="ILineItemRepository.cs" />
     <Compile Include="InvoiceManager.cs" />
     <Compile Include="InvoiceRepository.cs" />
