@@ -34,7 +34,6 @@ namespace CS3280_GroupProject.Search
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// the invoice Choice get, set method
         /// </summary>
         public string selected_Invoice
@@ -47,7 +46,9 @@ namespace CS3280_GroupProject.Search
             {
                 selectedInvoice = value;
             }
-=======
+        }
+
+        ///<summary>
         /// Event handler for when the search window is finished loading
         /// </summary>
         /// <param name="sender"></param>
@@ -65,7 +66,7 @@ namespace CS3280_GroupProject.Search
         private void btnFilterResults_Click(object sender, RoutedEventArgs e)
         {
 
->>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
+
         }
     }
 }

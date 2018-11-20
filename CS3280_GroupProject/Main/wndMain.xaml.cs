@@ -19,13 +19,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-<<<<<<< HEAD
 using System.Reflection;
 using CS3280_GroupProject.Items;
 using CS3280_GroupProject.Search;
-=======
-using CS3280_GroupProject.Items;
->>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
 
 
 namespace CS3280_GroupProject.Main
@@ -34,7 +30,6 @@ namespace CS3280_GroupProject.Main
     /// Interaction logic for wndMain.xaml
     /// </summary>
     public partial class wndMain : Window
-<<<<<<< HEAD
     {
         /// <summary>
         /// using variable to create instance of the clsMainLogic class.
@@ -44,9 +39,6 @@ namespace CS3280_GroupProject.Main
         /// <summary>
         /// This constructor initialises form and fill the grid with the hightest invoice number
         /// </summary>
-=======
-    {     
->>>>>>> 2fb5557c58ecc7fc7110d80c1ad52a48418b6e6c
         public wndMain()
         {
             try
@@ -140,7 +132,7 @@ namespace CS3280_GroupProject.Main
                     clsMain.setCost(0); //Reset cost 
                     clsMain.newInvoice(isInvoice);
                     clsMain.setInvoiceNum(isInvoice); //Fixes a bug I ran into
-                    currInvoiceDataGrid.ItemsSource = clsMain.getData(); 
+                    currInvoiceDataGrid.ItemsSource = clsMain.getData();
                     DateTime d = clsMain.getDate();
                     string data = d.ToString();
                     datepicker.Text = data; //Puts invoice's date into the date picker
@@ -150,7 +142,7 @@ namespace CS3280_GroupProject.Main
                     saveBut.IsEnabled = false;
                     datepicker.IsEnabled = false;
                     editButton.IsEnabled = true;
-                    addItemButton.IsEnabled = false;                   
+                    addItemButton.IsEnabled = false;
                     itemsListcomboBox.IsEnabled = false;
                     InvoiceNoBox.Content = clsMain.getInvoiceNum();
                     orderTotalBox.Content = "$" + clsMain.getTotalCost();
@@ -211,7 +203,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                
+
                 if (itemsListcomboBox.SelectedItem == null)
                 {
                     return; // return nothing if nothing is added
@@ -238,7 +230,7 @@ namespace CS3280_GroupProject.Main
         private void removeItembutton_Click(object sender, RoutedEventArgs e)
         {
             try
-            {         
+            {
                 if (currInvoiceDataGrid.SelectedItem == null)
                 {
                     return;
@@ -249,7 +241,7 @@ namespace CS3280_GroupProject.Main
                 string Code = (currInvoiceDataGrid.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
                 string Desc = (currInvoiceDataGrid.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
                 string Cost = (currInvoiceDataGrid.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
-                var selectedItem = currInvoiceDataGrid.SelectedItem; 
+                var selectedItem = currInvoiceDataGrid.SelectedItem;
                 int index = currInvoiceDataGrid.SelectedIndex;
                 currInvoiceDataGrid.ItemsSource = null; //Need to redo the list
                 clsMain.removeItem(index);
@@ -280,7 +272,7 @@ namespace CS3280_GroupProject.Main
                 {
                     date = datepicker.SelectedDate.Value; // holds the selected date
                     string data = date.ToString();
-                  
+
                     //populate the grid
                     if (InvoiceNoBox.Content.ToString() == "TBD")
                     {
@@ -299,7 +291,7 @@ namespace CS3280_GroupProject.Main
                         //initialising string variable to item selected
                         string Code = (currInvoiceDataGrid.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
                         items.Add(Code);
-                       
+
                     }
                     clsMain.updateChanges(InvoiceNoBox.Content.ToString(), items);
 
@@ -329,18 +321,18 @@ namespace CS3280_GroupProject.Main
             try
             {
                 //clear the grid, date, invi=oice number, and disable and enable some buttons
-                currInvoiceDataGrid.ItemsSource = null; 
-                currInvoiceDataGrid.Items.Clear(); 
+                currInvoiceDataGrid.ItemsSource = null;
+                currInvoiceDataGrid.Items.Clear();
                 InvoiceNoBox.Content = "TBD";
                 clsMain.setCost(0);
                 orderTotalBox.Content = "$" + clsMain.getTotalCost();
-                datepicker.Text = ""; 
+                datepicker.Text = "";
                 addItemButton.IsEnabled = true;
                 removeItembutton.IsEnabled = true;
                 saveBut.IsEnabled = true;
                 newInvoiceButton.IsEnabled = false;
                 editButton.IsEnabled = false;
-                datepicker.IsEnabled = true; 
+                datepicker.IsEnabled = true;
                 itemsListcomboBox.IsEnabled = true;
 
                 //populate the combo box with items 
@@ -424,7 +416,7 @@ namespace CS3280_GroupProject.Main
                     itemsListcomboBox.IsEnabled = false;
                     editButton.IsEnabled = false;
                     deleteIvoiceButton.IsEnabled = false;
-                    newInvoiceButton.IsEnabled = true; 
+                    newInvoiceButton.IsEnabled = true;
                 }
 
             }
@@ -433,26 +425,6 @@ namespace CS3280_GroupProject.Main
                 CheckingErrors(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
-        }
-
-        private void UpdateInventory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_Click_Search(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void NewInvoice_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
