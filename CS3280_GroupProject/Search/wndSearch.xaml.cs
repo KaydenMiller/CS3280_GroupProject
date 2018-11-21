@@ -19,9 +19,54 @@ namespace CS3280_GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+
+        /// <summary>
+        /// this variable holds the invoice selected from the search form
+        /// please don't forget to Set the string variables (selectedInvoice = ) to Selected 
+        /// item when the select button is clicked on
+        /// </summary>
+        private string selectedInvoice = "";
+
         public wndSearch()
         {
+            DataContext = new ViewModel.SearchViewModel();
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// the invoice Choice get, set method
+        /// </summary>
+        public string selected_Invoice
+        {
+            get
+            {
+                return selectedInvoice;
+            }
+            set
+            {
+                selectedInvoice = value;
+            }
+        }
+
+        ///<summary>
+        /// Event handler for when the search window is finished loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// The filter button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFilterResults_Click(object sender, RoutedEventArgs e)
+        {
+
+
         }
     }
 }

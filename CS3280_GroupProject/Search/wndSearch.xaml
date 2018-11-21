@@ -4,9 +4,84 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3280_GroupProject.Search"
+        xmlns:view="clr-namespace:CS3280_GroupProject.Search.ViewModel"
         mc:Ignorable="d"
-        Title="wndSearch" Height="450" Width="800">
+        Title="wndSearch" Height="450" Width="800"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- Window Style for filter property selection -->
+        <Style x:Key="StackPanel_Horizontal_Property" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <view:SearchViewModel/>
+    </Window.DataContext>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Invoice Search"
+                   Style="{StaticResource TextBlock_Page_Title}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <DataGrid x:Name="InvoiceDataGrid"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          Margin="5">
+                    
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center" 
+                            Margin="5">
+                    <TextBlock Text="Filter Options"
+                               Style="{StaticResource TextBlock_SubHeader_Title}"/>
+
+                    <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
+                        <Label Content="Invoice #:"/>
+                        <ComboBox Width="150"
+                                  ItemsSource="{Binding Invoices}"
+                                  SelectedItem="{Binding FilteredInvoices}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding InvoiceID}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
+                        <Label Content="Invoice Date:"/>
+                        <ComboBox Width="150">
+
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
+                        <Label Content="Total Charge:"/>
+                        <ComboBox Width="150">
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button x:Name="btnFilterResults" Content="FILTER" Click="btnFilterResults_Click"/>
+                    <Button x:Name="btnClearSelection" Content="CLEAR SELECTION"/>
+                    <Button x:Name="btnSelectInvoice" Content="SELECT INVOICE"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
