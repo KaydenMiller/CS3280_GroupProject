@@ -57,7 +57,8 @@ namespace CS3280_GroupProject.Items
 		/// <param name="e"></param>
 		private void addItemBtn_Click(object sender, RoutedEventArgs e)
 		{
-			isChanged = true;
+			toggleInputVisibility(true);
+			resetInput();
 		}
 
 		/// <summary>
@@ -91,6 +92,32 @@ namespace CS3280_GroupProject.Items
 		private void updateBtn_Click(object sender, RoutedEventArgs e)
 		{
 			isChanged = true;
+		}
+
+		/// <summary>
+		/// Changes the visibility of all the inputs for adding and editing an item.
+		/// </summary>
+		/// <param name="visible">Boolean true for visible, false for invisible.</param>
+		private void toggleInputVisibility(bool visible)
+		{
+			ItemCodeLabel.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+			ItemCodeInput.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+			ItemDescriptionLabel.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+			ItemDescriptionInput.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+			ItemCostLabel.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+			ItemCostInput.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+		}
+
+		private void resetInput()
+		{
+			ItemCodeInput.Text = "";
+			ItemDescriptionInput.Text = "";
+			ItemCostInput.Text = "";
+		}
+
+		private void ItemGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }
