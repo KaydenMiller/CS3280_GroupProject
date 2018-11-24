@@ -117,7 +117,17 @@ namespace CS3280_GroupProject.Items
 
 		private void ItemGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			DataGrid grid = sender as DataGrid;
+			toggleInputVisibility(true);
+			resetInput();
+			object row = grid.SelectedItem;
 
+			ItemCodeInput.Text = (grid.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
+			ItemDescriptionInput.Text = (grid.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+			ItemCostInput.Text = (grid.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+
+			editItemBtn.IsEnabled = true;
+			removeItemBtn.IsEnabled = true;
 		}
 	}
 }
