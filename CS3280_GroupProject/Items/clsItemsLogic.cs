@@ -17,6 +17,11 @@ namespace CS3280_GroupProject.Items
 		DataSet queryResult;
 
 		/// <summary>
+		/// Variable holding dataset to be printed.
+		/// </summary>
+		DataSet itemsResult;
+
+		/// <summary>
 		/// Creating Instance of the clsDataAccess to gain access to the database
 		/// </summary>
 		clsDataAccess query;
@@ -26,16 +31,25 @@ namespace CS3280_GroupProject.Items
 		/// </summary>
 		clsItemsSQL SQLIns;
 
-		/// <summary>
-		/// This list variable holds items to fill the combo box 
-		/// </summary>
-		public List<Item> itemList;
-
 		public clsItemsLogic()
 		{
 			SQLIns = new clsItemsSQL();
 			query = new clsDataAccess();
+			int iRet = 0;
+			queryResult = query.ExecuteSQLStatement(SQLIns.GetAllItems(), ref iRet);
+			itemsResult = queryResult;
+		}
 
+		public DataView getData()
+		{
+			try
+			{
+				return itemsResult.Tables[0].DefaultView;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Something went wrong with getting a view for clsItemsLogic.getData()");
+			}
 		}
 	}
 }

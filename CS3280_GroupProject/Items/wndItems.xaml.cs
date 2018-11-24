@@ -25,12 +25,18 @@ namespace CS3280_GroupProject.Items
         /// please remember to set isChanged = true; 
         /// if InsertButton, UpdateButton, DeleteButton is clicked on
         /// </summary>
-        private bool isChanged = false; 
+        private bool isChanged = false;
+
+		/// <summary>
+		/// Business Logic container
+		/// </summary>
+		clsItemsLogic itemsLogic;
 
         public wndItems()
         {
-			//Fetch Items from DataAccessLayer and bind them into ItemGrid
             InitializeComponent();
+			itemsLogic = new clsItemsLogic();
+			ItemGrid.ItemsSource = itemsLogic.getData();
         }
 
         /// <summary>

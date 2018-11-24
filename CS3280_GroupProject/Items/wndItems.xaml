@@ -25,13 +25,7 @@
 				<ColumnDefinition Width="5*"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<DataGrid x:Name="ItemGrid">
-				<DataGrid.Columns>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Code" IsReadOnly="True" SortDirection="Ascending"/>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cost" IsReadOnly="True"/>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Description" IsReadOnly="True"/>
-				</DataGrid.Columns>
-			</DataGrid>
+			<DataGrid x:Name="ItemGrid"/>
 			<StackPanel Grid.Column="1" Margin="0">
 				<Button x:Name="addItemBtn" Content="Add Item" VerticalAlignment="Top" Click="addItemBtn_Click"/>
 				<Button x:Name="editItemBtn" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="0,10,0,0" Click="editItemBtn_Click"/>
