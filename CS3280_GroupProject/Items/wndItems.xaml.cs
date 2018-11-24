@@ -29,6 +29,7 @@ namespace CS3280_GroupProject.Items
 
         public wndItems()
         {
+			//Fetch Items from DataAccessLayer and bind them into ItemGrid
             InitializeComponent();
         }
 
@@ -43,7 +44,47 @@ namespace CS3280_GroupProject.Items
             }
         }
 
-        
+		/// <summary>
+		/// Either makes the data grid able to be modified, or will make visible a few text boxes. 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void addItemBtn_Click(object sender, RoutedEventArgs e)
+		{
+			isChanged = true;
+		}
 
-    }
+		/// <summary>
+		/// Either makes the selected row able to be edited, or will copy the data to some text boxes to
+		/// be changed.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void editItemBtn_Click(object sender, RoutedEventArgs e)
+		{
+			isChanged = true;
+		}
+
+		/// <summary>
+		/// Verifies that the item isn't being used by any of the invoices, then marks it for deletion
+		/// with the submit button. Raises a red error if anything goes wrong.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void removeItemBtn_Click(object sender, RoutedEventArgs e)
+		{
+			isChanged = true;
+		}
+
+		/// <summary>
+		/// Nothing in this window will be sent to the database until this button is clicked.
+		/// All changes are then verified in here, then committed.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void updateBtn_Click(object sender, RoutedEventArgs e)
+		{
+			isChanged = true;
+		}
+	}
 }
