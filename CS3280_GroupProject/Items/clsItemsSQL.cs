@@ -16,5 +16,17 @@ namespace CS3280_GroupProject.Items
 			return "SELECT ItemCode, ItemDesc, Cost " + 
 						"FROM ItemDesc";
 		}
+
+		public string GetItemCodes()
+		{
+			return "SELECT ItemCode " + 
+						"FROM ItemDesc";
+		}
+
+		public string GetInvoicesFromItemCode(string itemCode)
+		{
+			return "SELECT ItemCode " +
+						"FROM LineItems";
+		}
     }
 }

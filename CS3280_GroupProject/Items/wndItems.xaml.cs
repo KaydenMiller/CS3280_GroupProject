@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 
 namespace CS3280_GroupProject.Items
@@ -31,6 +32,12 @@ namespace CS3280_GroupProject.Items
 		/// Business Logic container
 		/// </summary>
 		clsItemsLogic itemsLogic;
+
+		const string ITEMCODEUSED_ERROR = "Item code is already used. Please pick another one.";
+
+		const string ITEMCODEINUSE_ERROR = "Item code is being used in invoices. Please pick another one.";
+
+		const string ITEMCOST_ERROR = "Item MUST be a plain integer.";
 
         public wndItems()
         {
@@ -59,6 +66,9 @@ namespace CS3280_GroupProject.Items
 		{
 			toggleInputVisibility(true);
 			resetInput();
+			ItemCodeInput.IsEnabled = true;
+			ItemDescriptionInput.IsEnabled = true;
+			ItemCostInput.IsEnabled = true;
 		}
 
 		/// <summary>
@@ -69,7 +79,10 @@ namespace CS3280_GroupProject.Items
 		/// <param name="e"></param>
 		private void editItemBtn_Click(object sender, RoutedEventArgs e)
 		{
-			isChanged = true;
+			ItemCodeInput.IsEnabled = false;
+			string update = ItemDescriptionInput.Text;
+			ItemDescriptionInput.Text += "p";
+			ItemDescriptionInput.Text = update;
 		}
 
 		/// <summary>
@@ -80,7 +93,9 @@ namespace CS3280_GroupProject.Items
 		/// <param name="e"></param>
 		private void removeItemBtn_Click(object sender, RoutedEventArgs e)
 		{
-			isChanged = true;
+			ItemCodeInput.IsEnabled = false;
+			ItemDescriptionInput.IsEnabled = false;
+			ItemCostInput.IsEnabled = false;
 		}
 
 		/// <summary>
@@ -107,12 +122,16 @@ namespace CS3280_GroupProject.Items
 			ItemCostLabel.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
 			ItemCostInput.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
 		}
-
+		
+		/// <summary>
+		/// Resets the input boxes and the flags.
+		/// </summary>
 		private void resetInput()
 		{
 			ItemCodeInput.Text = "";
 			ItemDescriptionInput.Text = "";
 			ItemCostInput.Text = "";
+			ErrorLabel.Visibility = Visibility.Hidden;
 		}
 
 		private void ItemGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -128,6 +147,49 @@ namespace CS3280_GroupProject.Items
 
 			editItemBtn.IsEnabled = true;
 			removeItemBtn.IsEnabled = true;
+			ErrorLabel.Visibility = Visibility.Hidden;
+		}
+
+		private void InputVerification(object sender, TextChangedEventArgs e)
+		{
+			ErrorLabel.Visibility = Visibility.Hidden;
+			bool validCode = false;
+			bool validCost = false;
+			if (ItemCodeInput.Text == (ItemGrid.SelectedCells[0].Column.GetCellContent(ItemGrid.SelectedItem) as TextBlock).Text && ItemCodeInput.IsEnabled == false)
+			{
+				validCode = true;
+			}
+			else
+			{
+				try
+				{
+					itemsLogic.itemCodeVerification(ItemCodeInput.Text);
+					validCode = true;
+				}
+				catch (DataException ex)
+				{
+					ErrorLabel.Content = ITEMCODEUSED_ERROR;
+					ErrorLabel.Visibility = Visibility.Visible;
+				}
+				catch (Exception ex2)
+				{
+					ErrorLabel.Content = ITEMCODEINUSE_ERROR;
+					ErrorLabel.Visibility = Visibility.Visible;
+					//TODO: Show invoices item is used in.
+				}
+			}
+
+			if (!Int32.TryParse(ItemCostInput.Text, out int value))
+			{
+				ErrorLabel.Content = ITEMCOST_ERROR;
+				ErrorLabel.Visibility = Visibility.Visible;
+			}
+			else { validCost = true; }
+
+			if (validCode && validCost)
+			{
+				updateBtn.IsEnabled = true;
+			}
 		}
 	}
 }
