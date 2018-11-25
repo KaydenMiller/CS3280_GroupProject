@@ -46,7 +46,7 @@
 				</Grid>
 			</StackPanel>
 		</Grid>
-		<Label x:Name="ErrorLabel" Content="Label" HorizontalAlignment="Right" Margin="595,5,0,0" Grid.Row="2" FontSize="20" Foreground="#FFE60000" Visibility="Hidden"/>
+		<Label x:Name="ErrorLabel" Content="Label" Margin="0" Grid.Row="2" FontSize="20" Foreground="#FFE60000" Visibility="Hidden"/>
 
 	</Grid>
 </Window>

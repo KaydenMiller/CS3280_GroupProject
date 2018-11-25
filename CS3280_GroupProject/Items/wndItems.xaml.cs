@@ -33,12 +33,24 @@ namespace CS3280_GroupProject.Items
 		/// </summary>
 		clsItemsLogic itemsLogic;
 
+		/// <summary>
+		/// The string to display if the item code is used for an item.
+		/// </summary>
 		const string ITEMCODEUSED_ERROR = "Item code is already used. Please pick another one.";
 
+		/// <summary>
+		/// The string to display if the item code is used for an invoice.
+		/// </summary>
 		const string ITEMCODEINUSE_ERROR = "Item code is being used in invoices. Please pick another one.";
 
+		/// <summary>
+		/// The string to display if the price isn't an integer.
+		/// </summary>
 		const string ITEMCOST_ERROR = "Item MUST be a plain integer.";
 
+		/// <summary>
+		/// Makes the logic, then get's the data to put into the data grid.
+		/// </summary>
         public wndItems()
         {
             InitializeComponent();
@@ -66,6 +78,7 @@ namespace CS3280_GroupProject.Items
 		{
 			toggleInputVisibility(true);
 			resetInput();
+			ItemGrid.SelectedItem = null;
 			ItemCodeInput.IsEnabled = true;
 			ItemDescriptionInput.IsEnabled = true;
 			ItemCostInput.IsEnabled = true;
@@ -106,7 +119,23 @@ namespace CS3280_GroupProject.Items
 		/// <param name="e"></param>
 		private void updateBtn_Click(object sender, RoutedEventArgs e)
 		{
-			isChanged = true;
+			int result;
+			if (!Int32.TryParse(ItemCostInput.Text, out result))
+			{
+				ErrorLabel.Content = ITEMCOST_ERROR;
+				ErrorLabel.Visibility = Visibility.Visible;
+			}
+			else if (ItemCodeInput.IsEnabled == true)
+			{
+				itemsLogic.AddItem(ItemCodeInput.Text, ItemDescriptionInput.Text, result);
+				isChanged = true;
+				resetInput();
+				ItemGrid.ItemsSource = itemsLogic.getData();
+			}
+			else
+			{
+
+			}
 		}
 
 		/// <summary>
@@ -132,8 +161,14 @@ namespace CS3280_GroupProject.Items
 			ItemDescriptionInput.Text = "";
 			ItemCostInput.Text = "";
 			ErrorLabel.Visibility = Visibility.Hidden;
+			updateBtn.IsEnabled = false;
 		}
 
+		/// <summary>
+		/// Fills in the 3 text input fields to what the selection is.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ItemGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			DataGrid grid = sender as DataGrid;
@@ -141,23 +176,34 @@ namespace CS3280_GroupProject.Items
 			resetInput();
 			object row = grid.SelectedItem;
 
-			ItemCodeInput.Text = (grid.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
-			ItemDescriptionInput.Text = (grid.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
-			ItemCostInput.Text = (grid.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+			if (grid.SelectedItem != null)
+			{
+				ItemCodeInput.Text = (grid.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
+				ItemDescriptionInput.Text = (grid.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+				ItemCostInput.Text = (grid.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+			}
 
 			editItemBtn.IsEnabled = true;
 			removeItemBtn.IsEnabled = true;
 			ErrorLabel.Visibility = Visibility.Hidden;
 		}
 
+		/// <summary>
+		/// Verifies the input, then using that either lets the update button be pressed or show an error code.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void InputVerification(object sender, TextChangedEventArgs e)
 		{
 			ErrorLabel.Visibility = Visibility.Hidden;
 			bool validCode = false;
 			bool validCost = false;
-			if (ItemCodeInput.Text == (ItemGrid.SelectedCells[0].Column.GetCellContent(ItemGrid.SelectedItem) as TextBlock).Text && ItemCodeInput.IsEnabled == false)
+			if (ItemGrid.SelectedItem != null)
 			{
-				validCode = true;
+				if (ItemCodeInput.Text == (ItemGrid.SelectedCells[0].Column.GetCellContent(ItemGrid.SelectedItem) as TextBlock).Text && ItemCodeInput.IsEnabled == false)
+				{
+					validCode = true;
+				}
 			}
 			else
 			{
@@ -171,12 +217,13 @@ namespace CS3280_GroupProject.Items
 					ErrorLabel.Content = ITEMCODEUSED_ERROR;
 					ErrorLabel.Visibility = Visibility.Visible;
 				}
-				catch (Exception ex2)
+				//FIXME: Item verification
+				/*catch (Exception ex2)
 				{
 					ErrorLabel.Content = ITEMCODEINUSE_ERROR;
 					ErrorLabel.Visibility = Visibility.Visible;
 					//TODO: Show invoices item is used in.
-				}
+				}*/
 			}
 
 			if (!Int32.TryParse(ItemCostInput.Text, out int value))
@@ -191,5 +238,7 @@ namespace CS3280_GroupProject.Items
 				updateBtn.IsEnabled = true;
 			}
 		}
+
+		//TODO: Make an error handling method.
 	}
 }
