@@ -36,6 +36,11 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         clsMainLogic clsMain;
 
+        ///<summary>
+        ///To know if date is selected
+        ///</summary>
+        bool dateSelect = false;
+
         /// <summary>
         /// This constructor initialises form and fill the grid with the hightest invoice number
         /// </summary>
@@ -46,7 +51,7 @@ namespace CS3280_GroupProject.Main
                 InitializeComponent();
                 clsMain = new clsMainLogic(); //Instance of the clsMainLogic class
                 DateTime db = clsMain.getDate();
-                String data = db.ToString();
+                string data = db.ToString();
                 datepicker.Text = data; //Puts invoice's date into the date picker
                 addItemButton.IsEnabled = false;
                 removeItembutton.IsEnabled = false;
@@ -56,6 +61,10 @@ namespace CS3280_GroupProject.Main
                 InvoiceNoBox.Content = clsMain.getInvoiceNum();
                 currInvoiceDataGrid.ItemsSource = clsMain.getData();
                 orderTotalBox.Content = "$" + clsMain.getTotalCost();
+                currInvoiceDataGrid.IsReadOnly = false;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
+                rememberMsgLabel.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
@@ -105,7 +114,12 @@ namespace CS3280_GroupProject.Main
                         itemsListcomboBox.Items.Add(list.ElementAt(i));
                     }
                 }
-
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                if (dateSelect)
+                {
+                    rememberMsgLabel.Visibility = Visibility.Hidden;
+                    saveBut.IsEnabled = true;
+                }               
             }
             catch (Exception ex)
             {
@@ -277,11 +291,11 @@ namespace CS3280_GroupProject.Main
                     if (InvoiceNoBox.Content.ToString() == "TBD")
                     {
                         clsMain.insertDate(data);
-                        String newInvoice = clsMain.newInvoice("");
+                        string newInvoice = clsMain.newInvoice("");
                         clsMain.setInvoiceNum(newInvoice);
                         InvoiceNoBox.Content = clsMain.getInvoiceNum();
                     }
-                    List<String> items = new List<String>();
+                    List<string> items = new List<string>();
                     for (int i = 0; i < currInvoiceDataGrid.Items.Count; i++)
                     {
                         //Gets the code from the selected item
@@ -302,6 +316,7 @@ namespace CS3280_GroupProject.Main
                     addItemButton.IsEnabled = false;
                     newInvoiceButton.IsEnabled = true;
                     editButton.IsEnabled = true;
+                    saveMsgLabel.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -329,14 +344,17 @@ namespace CS3280_GroupProject.Main
                 datepicker.Text = "";
                 addItemButton.IsEnabled = true;
                 removeItembutton.IsEnabled = true;
-                saveBut.IsEnabled = true;
+                saveBut.IsEnabled = false;
                 newInvoiceButton.IsEnabled = false;
                 editButton.IsEnabled = false;
                 datepicker.IsEnabled = true;
                 itemsListcomboBox.IsEnabled = true;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
+                rememberMsgLabel.Visibility = Visibility.Visible;
 
                 //populate the combo box with items 
-                List<String> list = clsMain.getItems();
+                List<string> list = clsMain.getItems();
                 for (int i = 0; i < list.Count; i++)
                 {
                     itemsListcomboBox.Items.Add(list.ElementAt(i));
@@ -366,9 +384,11 @@ namespace CS3280_GroupProject.Main
                 removeItembutton.IsEnabled = true;
                 newInvoiceButton.IsEnabled = false;
                 editButton.IsEnabled = false;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
 
                 //populate the combo box with items 
-                List<String> list = clsMain.getItems();
+                List<string> list = clsMain.getItems();
                 for (int i = 0; i < list.Count; i++)
                 {
                     itemsListcomboBox.Items.Add(list.ElementAt(i));
@@ -417,6 +437,8 @@ namespace CS3280_GroupProject.Main
                     editButton.IsEnabled = false;
                     deleteIvoiceButton.IsEnabled = false;
                     newInvoiceButton.IsEnabled = true;
+                    deleteMsgLabel.Visibility = Visibility.Visible;
+                    saveMsgLabel.Visibility = Visibility.Hidden;
                 }
 
             }

@@ -25,7 +25,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="ItemCode"></param>
         /// <returns>String sql</returns>
-        public String getCost(String ItemCode)
+        public string getCost(string ItemCode)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="itemCode">itemCode</param>
         /// <returns>String sql</returns>
-        public String getSelItem(String itemCode)
+        public string getSelItem(string itemCode)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace CS3280_GroupProject.Main
         /// This method returns all desc and item code from the ItemDesc table.
         /// </summary>
         /// <returns>String sql</returns>
-        public String getItems()
+        public string getItems()
         {
             try
             {
@@ -81,7 +81,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="date">String date</param>
         /// <returns>String sql</returns>
-        public String putInvoiceDate(String date)
+        public string putInvoiceDate(string date)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace CS3280_GroupProject.Main
         /// This sql method gets the invoice from the invoices table
         /// </summary>
         /// <returns>String sql</returns>
-        public String getInvoice(String invoiceNum)
+        public string getInvoice(string invoiceNum)
         {
             try
             {               
@@ -127,12 +127,12 @@ namespace CS3280_GroupProject.Main
         /// <param name="lineItemNum">lineItemNum</param>
         /// <param name="itemCode">itemCode</param>
         /// <returns>String sql</returns>
-        public String insertLineItems(String invoiceNum, String lineItemNum, String itemCode)
+        public string insertLineItems(string invoiceNum, string lineItemNum, string itemCode)
         {
             try
             {
                 return "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) " +
-                        "VALUES (" + invoiceNum + ", " + lineItemNum + ", \"" + itemCode + "\")";
+                        "VALUES (" + invoiceNum + ", " + lineItemNum + ", '" + itemCode + "')";
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
         /// <returns>String sql</returns>
-        public String getInvoiceItems(String invoiceNum)
+        public string getInvoiceItems(string invoiceNum)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace CS3280_GroupProject.Main
         /// <param name="invoiceNum">invoiceNum</param>
         /// <param name="date">date</param>
         /// <returns>String sql</returns>
-        public String updateInvoiceDate(String invoiceNum, String date)
+        public string updateInvoiceDate(string invoiceNum, string date)
         {
             try
             {
@@ -185,7 +185,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
         /// <returns>String sql</returns>
-        public String deleteLineItem(String invoiceNum)
+        public string deleteLineItem(string invoiceNum)
         {
             try
             {
@@ -203,7 +203,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
         /// <returns>String sql</returns>
-        public String deleteInvoice(String invoiceNum)
+        public string deleteInvoice(string invoiceNum)
         {
             try
             {

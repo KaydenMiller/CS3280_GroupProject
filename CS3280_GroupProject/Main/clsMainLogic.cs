@@ -64,7 +64,7 @@ namespace CS3280_GroupProject.Main
         /// <summary>
         /// This list variable holds items to fill the combo box 
         /// </summary>
-        public List<String> itemList;
+        public List<string> itemList;
 
         /// <summary>
         /// This list variable holds the item from an invoice
@@ -89,9 +89,9 @@ namespace CS3280_GroupProject.Main
                 int iRet = 0;
                 mainQuery = SQLIns.getInvoiceItems(invoiceNum); //obtains the items of an invoice
                 queryResult = query.ExecuteSQLStatement(mainQuery, ref iRet);
-                invoiceItem = new List<String>();
+                invoiceItem = new List<string>();
                 invoiceResult = queryResult; //set the output to the dataset
-                for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
+                for (int i = 0; i < iRet; i++)
                 {
                     invoiceItem.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
                 }
@@ -126,7 +126,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum">String invoiceNum</param>
         /// <returns></returns>
-        public String newInvoice(String invoiceNum)
+        public string newInvoice(string invoiceNum)
         {
             try
             {
@@ -140,21 +140,23 @@ namespace CS3280_GroupProject.Main
                 iRet = 0;
                 mainQuery = SQLIns.getItems(); //Gets all items 
                 queryResult = query.ExecuteSQLStatement(mainQuery, ref iRet);
-                itemList = new List<String>();
+                itemList = new List<string>();
                 for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
                 {
-                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
+                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + 
+                        queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
                 }
                 //Gets all items using the invoice number
                 mainQuery = SQLIns.getInvoiceItems(invoiceNum);
                 queryResult = query.ExecuteSQLStatement(mainQuery, ref iRet);
-                invoiceItem = new List<String>();
+                invoiceItem = new List<string>();
                 invoiceResult = queryResult; //put into dataset 
                 for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
                 {
-                    invoiceItem.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + queryResult.Tables[0].Rows[i].ItemArray[1].ToString()
+                    invoiceItem.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + 
+                        queryResult.Tables[0].Rows[i].ItemArray[1].ToString()
                         + " : " + queryResult.Tables[0].Rows[i].ItemArray[2].ToString());
-                    if (Decimal.TryParse(queryResult.Tables[0].Rows[i].ItemArray[2].ToString(), out decimal price))
+                    if (decimal.TryParse(queryResult.Tables[0].Rows[i].ItemArray[2].ToString(), out decimal price))
                     {
                         totalCost += price;
                     }
@@ -171,7 +173,7 @@ namespace CS3280_GroupProject.Main
         /// This method gets the invoice number to be displayed
         /// </summary>
         /// <returns>invoiceNum</returns>
-        public String getInvoiceNum()
+        public string getInvoiceNum()
         {
             try
             {
@@ -187,7 +189,7 @@ namespace CS3280_GroupProject.Main
         /// This method sets the cost of the invoice.
         /// </summary>
         /// <param name="price">cost</param>
-        public void setCost(Decimal price)
+        public void setCost(decimal price)
         {
             try
             {
@@ -205,7 +207,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="item">item</param>
         /// <returns>cost</returns>
-        public String getCost(String item)
+        public string getCost(string item)
         {
             try
             {
@@ -225,7 +227,7 @@ namespace CS3280_GroupProject.Main
         /// This method returns the totalCost
         /// </summary>
         /// <returns>totalCost</returns>
-        public String getTotalCost()
+        public string getTotalCost()
         {
             try
             {
@@ -241,7 +243,7 @@ namespace CS3280_GroupProject.Main
         /// This method will add a new item 
         /// </summary>
         /// <param name="code">code</param>
-        public void addItem(String code)
+        public void addItem(string code)
         {
             try
             {
@@ -270,7 +272,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                String itemCost = invoiceResult.Tables[0].Rows[index][2].ToString();
+                string itemCost = invoiceResult.Tables[0].Rows[index][2].ToString();
                 updateTotalCost("sub", itemCost); //calls total update
                 invoiceResult.Tables[0].Rows.RemoveAt(index); //remove that specifed item
             }
@@ -286,7 +288,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="action">additon or subtraction</param>
         /// <param name="cost">cost</param>
-        public void updateTotalCost(String action, String itemCost)
+        public void updateTotalCost(string action, string itemCost)
         {
             try
             {
@@ -311,7 +313,7 @@ namespace CS3280_GroupProject.Main
         /// This method inserts the date into the db.
         /// </summary>
         /// <param name="date">date</param>
-        public void insertDate(String date)
+        public void insertDate(string date)
         {
             try
             {
@@ -360,7 +362,7 @@ namespace CS3280_GroupProject.Main
         /// This method returns the list of all items.
         /// </summary>
         /// <returns>listItems</returns>
-        public List<String> getItems()
+        public List<string> getItems()
         {
             try
             {
@@ -386,7 +388,8 @@ namespace CS3280_GroupProject.Main
                 itemList.Clear();
                 for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
                 {
-                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
+                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + 
+                        queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
                 }
             }
             catch (Exception ex)
@@ -400,7 +403,7 @@ namespace CS3280_GroupProject.Main
         /// This method is used to delete the current invoice from the database.
         /// </summary>
         /// <param name="invoice">invoice</param>
-        public void deleteInvoice(String invoice)
+        public void deleteInvoice(string invoice)
         {
             try
             {
@@ -422,7 +425,7 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoice">invoice</param>
         /// <param name="items">items</param>
-        public void updateChanges(String invoice, List<String> items)
+        public void updateChanges(string invoice, List<string> items)
         {
             try
             {
@@ -473,7 +476,7 @@ namespace CS3280_GroupProject.Main
         /// This method is for checking error for getting invoice number
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
-        public void setInvoiceNum(String k)
+        public void setInvoiceNum(string k)
         {
             try
             {
