@@ -115,11 +115,7 @@ namespace CS3280_GroupProject.Main
                     }
                 }
                 deleteMsgLabel.Visibility = Visibility.Hidden;
-                if (dateSelect)
-                {
-                    rememberMsgLabel.Visibility = Visibility.Hidden;
-                    saveBut.IsEnabled = true;
-                }               
+                               
             }
             catch (Exception ex)
             {
@@ -199,6 +195,12 @@ namespace CS3280_GroupProject.Main
                 string item = (string)itemsListcomboBox.SelectedValue; //Get item from combo box
                 item = item.Substring(0, item.IndexOf(' ')); //Get the ItemCode
                 itemCost.Content = "$" + clsMain.getCost(item);
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                if (dateSelect)
+                {
+                    rememberMsgLabel.Visibility = Visibility.Hidden;
+                    saveBut.IsEnabled = true;
+                }
 
             }
             catch (Exception ex)
@@ -346,6 +348,7 @@ namespace CS3280_GroupProject.Main
                 removeItembutton.IsEnabled = true;
                 saveBut.IsEnabled = false;
                 newInvoiceButton.IsEnabled = false;
+                deleteIvoiceButton.IsEnabled = false;
                 editButton.IsEnabled = false;
                 datepicker.IsEnabled = true;
                 itemsListcomboBox.IsEnabled = true;
@@ -414,11 +417,11 @@ namespace CS3280_GroupProject.Main
                 //ingore the button if no invoice was selected
                 if (InvoiceNoBox.Content.ToString() == "")
                 {
-                    return;
+                     return;
                 }
 
                 //Display MessageBox to verify choice
-                MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice " +
+                MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice. " +
                     "Are you sure you want to delete invoice?", "Delete Invoice",
                     MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (isDelete == MessageBoxResult.Yes)
@@ -439,6 +442,7 @@ namespace CS3280_GroupProject.Main
                     newInvoiceButton.IsEnabled = true;
                     deleteMsgLabel.Visibility = Visibility.Visible;
                     saveMsgLabel.Visibility = Visibility.Hidden;
+                    rememberMsgLabel.Visibility = Visibility.Hidden;
                 }
 
             }
