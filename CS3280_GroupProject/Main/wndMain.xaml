@@ -18,7 +18,7 @@
                 <MenuItem x:Name="Exit" Header="Exit" Click="Exit_Click" Background="#FFD39494" FontWeight="Bold" FontSize="12" Foreground="#FF1D6A67" />
             </MenuItem>
         </Menu>
-        <DatePicker x:Name="datepicker" HorizontalAlignment="Left" Margin="180,109,0,0" VerticalAlignment="Top" Width="138"/>
+        <DatePicker x:Name="datepicker" HorizontalAlignment="Left" Margin="180,109,0,0" VerticalAlignment="Top" Width="138" SelectedDateChanged="selectedDate"/>
         <Button x:Name="saveBut" Content="Save Invoice" HorizontalAlignment="Left" Margin="169,300,0,0" VerticalAlignment="Top" Width="92" Background="#FF343608" Foreground="#FFE4D0D0" BorderBrush="#FF92A052" Click="saveBut_Click"/>
         <Label x:Name="titlelabel" Content="Miller's Jewelry Store" HorizontalAlignment="Left" Margin="298,35,0,0" VerticalAlignment="Top" Width="199" FontSize="20" Height="32" FontStyle="Italic" FontWeight="Bold" FontFamily="Tempus Sans ITC"/>
         <DataGrid x:Name="currInvoiceDataGrid" CanUserAddRows="False" HorizontalAlignment="Left" Height="248" Margin="365,111,0,0" VerticalAlignment="Top" Width="322" Background="#FFFBFBDA"/>

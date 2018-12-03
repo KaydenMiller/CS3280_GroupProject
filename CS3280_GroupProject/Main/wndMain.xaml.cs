@@ -197,8 +197,7 @@ namespace CS3280_GroupProject.Main
                 itemCost.Content = "$" + clsMain.getCost(item);
                 deleteMsgLabel.Visibility = Visibility.Hidden;
                 if (dateSelect)
-                {
-                    rememberMsgLabel.Visibility = Visibility.Hidden;
+                {                    
                     saveBut.IsEnabled = true;
                 }
 
@@ -346,9 +345,9 @@ namespace CS3280_GroupProject.Main
                 datepicker.Text = "";
                 addItemButton.IsEnabled = true;
                 removeItembutton.IsEnabled = true;
-                saveBut.IsEnabled = false;
+                saveBut.IsEnabled = true;
                 newInvoiceButton.IsEnabled = false;
-                deleteIvoiceButton.IsEnabled = false;
+                deleteIvoiceButton.IsEnabled = true;
                 editButton.IsEnabled = false;
                 datepicker.IsEnabled = true;
                 itemsListcomboBox.IsEnabled = true;
@@ -415,42 +414,52 @@ namespace CS3280_GroupProject.Main
             try
             {
                 //ingore the button if no invoice was selected
-                if (InvoiceNoBox.Content.ToString() == "")
+                if (InvoiceNoBox.Content.ToString() != "" && currInvoiceDataGrid.ItemsSource != null)
                 {
-                     return;
+                    //Display MessageBox to verify choice
+                    MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice. " +
+                        "Are you sure you want to delete invoice?", "Delete Invoice",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (isDelete == MessageBoxResult.Yes)
+                    {
+                        string invoice = InvoiceNoBox.Content.ToString();
+
+                        // Clear out all records in the invoice
+                        clsMain.deleteInvoice(invoice);
+                        InvoiceNoBox.Content = "";
+                        datepicker.Text = "";
+                        orderTotalBox.Content = "";
+                        itemCost.Content = "";
+                        //itemsListcomboBox.Items.Clear();
+                        currInvoiceDataGrid.ItemsSource = null;
+                        itemsListcomboBox.IsEnabled = false;
+                        editButton.IsEnabled = false;
+                        deleteIvoiceButton.IsEnabled = false;
+                        newInvoiceButton.IsEnabled = true;
+                        deleteMsgLabel.Visibility = Visibility.Visible;
+                        saveMsgLabel.Visibility = Visibility.Hidden;
+                        rememberMsgLabel.Visibility = Visibility.Hidden;
+                    }
+
                 }
-
-                //Display MessageBox to verify choice
-                MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice. " +
-                    "Are you sure you want to delete invoice?", "Delete Invoice",
-                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (isDelete == MessageBoxResult.Yes)
-                {
-                    string invoice = InvoiceNoBox.Content.ToString();
-
-                    // Clear out all records in the invoice
-                    clsMain.deleteInvoice(invoice);
-                    InvoiceNoBox.Content = "";
-                    datepicker.Text = "";
-                    orderTotalBox.Content = "";
-                    itemCost.Content = "";
-                    itemsListcomboBox.Items.Clear();
-                    currInvoiceDataGrid.ItemsSource = null;
-                    itemsListcomboBox.IsEnabled = false;
-                    editButton.IsEnabled = false;
-                    deleteIvoiceButton.IsEnabled = false;
-                    newInvoiceButton.IsEnabled = true;
-                    deleteMsgLabel.Visibility = Visibility.Visible;
-                    saveMsgLabel.Visibility = Visibility.Hidden;
-                    rememberMsgLabel.Visibility = Visibility.Hidden;
-                }
-
             }
             catch (Exception ex)
             {
                 CheckingErrors(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
+
+
+        /// <summary>
+        /// This method lets the program know if a date is selected
+        /// </summary>
+        /// <param name="sender">select date</param>
+        /// <param name="e">Click</param>
+        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        {
+            dateSelect = true;
+            rememberMsgLabel.Visibility = Visibility.Hidden;
         }
     }
 }
