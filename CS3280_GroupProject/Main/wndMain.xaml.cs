@@ -36,6 +36,11 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         clsMainLogic clsMain;
 
+        ///<summary>
+        ///To know if date is selected
+        ///</summary>
+        bool dateSelect = false;
+
         /// <summary>
         /// This constructor initialises form and fill the grid with the hightest invoice number
         /// </summary>
@@ -46,7 +51,7 @@ namespace CS3280_GroupProject.Main
                 InitializeComponent();
                 clsMain = new clsMainLogic(); //Instance of the clsMainLogic class
                 DateTime db = clsMain.getDate();
-                String data = db.ToString();
+                string data = db.ToString();
                 datepicker.Text = data; //Puts invoice's date into the date picker
                 addItemButton.IsEnabled = false;
                 removeItembutton.IsEnabled = false;
@@ -56,6 +61,10 @@ namespace CS3280_GroupProject.Main
                 InvoiceNoBox.Content = clsMain.getInvoiceNum();
                 currInvoiceDataGrid.ItemsSource = clsMain.getData();
                 orderTotalBox.Content = "$" + clsMain.getTotalCost();
+                currInvoiceDataGrid.IsReadOnly = false;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
+                rememberMsgLabel.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
@@ -105,7 +114,8 @@ namespace CS3280_GroupProject.Main
                         itemsListcomboBox.Items.Add(list.ElementAt(i));
                     }
                 }
-
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                               
             }
             catch (Exception ex)
             {
@@ -185,6 +195,11 @@ namespace CS3280_GroupProject.Main
                 string item = (string)itemsListcomboBox.SelectedValue; //Get item from combo box
                 item = item.Substring(0, item.IndexOf(' ')); //Get the ItemCode
                 itemCost.Content = "$" + clsMain.getCost(item);
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                if (dateSelect)
+                {                    
+                    saveBut.IsEnabled = true;
+                }
 
             }
             catch (Exception ex)
@@ -277,11 +292,11 @@ namespace CS3280_GroupProject.Main
                     if (InvoiceNoBox.Content.ToString() == "TBD")
                     {
                         clsMain.insertDate(data);
-                        String newInvoice = clsMain.newInvoice("");
+                        string newInvoice = clsMain.newInvoice("");
                         clsMain.setInvoiceNum(newInvoice);
                         InvoiceNoBox.Content = clsMain.getInvoiceNum();
                     }
-                    List<String> items = new List<String>();
+                    List<string> items = new List<string>();
                     for (int i = 0; i < currInvoiceDataGrid.Items.Count; i++)
                     {
                         //Gets the code from the selected item
@@ -302,6 +317,7 @@ namespace CS3280_GroupProject.Main
                     addItemButton.IsEnabled = false;
                     newInvoiceButton.IsEnabled = true;
                     editButton.IsEnabled = true;
+                    saveMsgLabel.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -331,12 +347,16 @@ namespace CS3280_GroupProject.Main
                 removeItembutton.IsEnabled = true;
                 saveBut.IsEnabled = true;
                 newInvoiceButton.IsEnabled = false;
+                deleteIvoiceButton.IsEnabled = true;
                 editButton.IsEnabled = false;
                 datepicker.IsEnabled = true;
                 itemsListcomboBox.IsEnabled = true;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
+                rememberMsgLabel.Visibility = Visibility.Visible;
 
                 //populate the combo box with items 
-                List<String> list = clsMain.getItems();
+                List<string> list = clsMain.getItems();
                 for (int i = 0; i < list.Count; i++)
                 {
                     itemsListcomboBox.Items.Add(list.ElementAt(i));
@@ -366,9 +386,11 @@ namespace CS3280_GroupProject.Main
                 removeItembutton.IsEnabled = true;
                 newInvoiceButton.IsEnabled = false;
                 editButton.IsEnabled = false;
+                deleteMsgLabel.Visibility = Visibility.Hidden;
+                saveMsgLabel.Visibility = Visibility.Hidden;
 
                 //populate the combo box with items 
-                List<String> list = clsMain.getItems();
+                List<string> list = clsMain.getItems();
                 for (int i = 0; i < list.Count; i++)
                 {
                     itemsListcomboBox.Items.Add(list.ElementAt(i));
@@ -392,39 +414,52 @@ namespace CS3280_GroupProject.Main
             try
             {
                 //ingore the button if no invoice was selected
-                if (InvoiceNoBox.Content.ToString() == "")
+                if (InvoiceNoBox.Content.ToString() != "" && currInvoiceDataGrid.ItemsSource != null)
                 {
-                    return;
+                    //Display MessageBox to verify choice
+                    MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice. " +
+                        "Are you sure you want to delete invoice?", "Delete Invoice",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (isDelete == MessageBoxResult.Yes)
+                    {
+                        string invoice = InvoiceNoBox.Content.ToString();
+
+                        // Clear out all records in the invoice
+                        clsMain.deleteInvoice(invoice);
+                        InvoiceNoBox.Content = "";
+                        datepicker.Text = "";
+                        orderTotalBox.Content = "";
+                        itemCost.Content = "";
+                        //itemsListcomboBox.Items.Clear();
+                        currInvoiceDataGrid.ItemsSource = null;
+                        itemsListcomboBox.IsEnabled = false;
+                        editButton.IsEnabled = false;
+                        deleteIvoiceButton.IsEnabled = false;
+                        newInvoiceButton.IsEnabled = true;
+                        deleteMsgLabel.Visibility = Visibility.Visible;
+                        saveMsgLabel.Visibility = Visibility.Hidden;
+                        rememberMsgLabel.Visibility = Visibility.Hidden;
+                    }
+
                 }
-
-                //Display MessageBox to verify choice
-                MessageBoxResult isDelete = MessageBox.Show("You will not be able to undo deleted invoice " +
-                    "Are you sure you want to delete invoice?", "Delete Invoice",
-                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (isDelete == MessageBoxResult.Yes)
-                {
-                    string invoice = InvoiceNoBox.Content.ToString();
-
-                    // Clear out all records in the invoice
-                    clsMain.deleteInvoice(invoice);
-                    InvoiceNoBox.Content = "";
-                    datepicker.Text = "";
-                    orderTotalBox.Content = "";
-                    itemCost.Content = "";
-                    itemsListcomboBox.Items.Clear();
-                    currInvoiceDataGrid.ItemsSource = null;
-                    itemsListcomboBox.IsEnabled = false;
-                    editButton.IsEnabled = false;
-                    deleteIvoiceButton.IsEnabled = false;
-                    newInvoiceButton.IsEnabled = true;
-                }
-
             }
             catch (Exception ex)
             {
                 CheckingErrors(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
+
+
+        /// <summary>
+        /// This method lets the program know if a date is selected
+        /// </summary>
+        /// <param name="sender">select date</param>
+        /// <param name="e">Click</param>
+        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        {
+            dateSelect = true;
+            rememberMsgLabel.Visibility = Visibility.Hidden;
         }
     }
 }

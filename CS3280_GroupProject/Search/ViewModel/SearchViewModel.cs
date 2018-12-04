@@ -5,8 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLayer;
 using DataAccessLayer;
+using BusinessLayer;
+
 
 namespace CS3280_GroupProject.Search.ViewModel
 {

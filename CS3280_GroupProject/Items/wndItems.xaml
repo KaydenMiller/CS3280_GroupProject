@@ -10,35 +10,43 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" MinHeight="53"/>
-			<RowDefinition Height="267*"/>
-			<RowDefinition Height="100*"/>
+			<RowDefinition Height="300*"/>
+			<RowDefinition Height="50*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
-		<Label x:Name="label" Content="Item Menu" HorizontalAlignment="Center" Margin="362,14,362,13" VerticalAlignment="Center" Height="26" Width="68"/>
+		<Label x:Name="label" Content="Item Menu" Margin="0" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Center"/>
 		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="5*"/>
+				<ColumnDefinition Width="3*"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<DataGrid x:Name="dataGrid">
-				<DataGrid.Columns>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Code" IsReadOnly="True" SortDirection="Ascending"/>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cost" IsReadOnly="True"/>
-					<DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Description" IsReadOnly="True"/>
-				</DataGrid.Columns>
-			</DataGrid>
+			<DataGrid x:Name="ItemGrid" IsReadOnly="True" SelectionChanged="ItemGrid_SelectionChanged"/>
 			<StackPanel Grid.Column="1" Margin="0">
-				<Button x:Name="addItemBtn" Content="Add Item" VerticalAlignment="Top"/>
-				<Button x:Name="editItemBtn" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="0,10,0,0"/>
-				<Button x:Name="removeItemBtn" Content="Remove Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" RenderTransformOrigin="0.733,0.273" Margin="0,10,0,0"/>
-				<Button x:Name="updateBtn" Content="Submit Changes" Margin="0,50,0,0" IsEnabled="False"/>
+				<Button x:Name="addItemBtn" Content="Add Item" VerticalAlignment="Top" Click="addItemBtn_Click" Margin="25,5,25,0" HorizontalAlignment="Center"/>
+				<Button x:Name="editItemBtn" Content="Edit Item" VerticalAlignment="Top" Margin="0,10,0,0" Click="editItemBtn_Click" IsEnabled="False"/>
+				<Button x:Name="removeItemBtn" Content="Remove Item" VerticalAlignment="Top" RenderTransformOrigin="0.733,0.273" Margin="0,10,0,0" Click="removeItemBtn_Click" Width="198" IsEnabled="False"/>
+				<Label x:Name="ItemCodeLabel" Content="Item Code" HorizontalAlignment="Center" Margin="0,10,0,0" Visibility="Hidden"/>
+				<TextBox x:Name="ItemCodeInput" Height="23" TextWrapping="Wrap" Text="" Visibility="Hidden" TextChanged="InputVerification" MaxLength="4"/>
+				<Label x:Name="ItemDescriptionLabel" Content="Item Description" HorizontalAlignment="Center" Margin="0,5,0,0" Visibility="Hidden"/>
+				<TextBox x:Name="ItemDescriptionInput" Height="23" TextWrapping="Wrap" Text="" Visibility="Hidden" TextChanged="InputVerification"/>
+				<Label x:Name="ItemCostLabel" Content="Item Cost" Margin="0,5,0,0" HorizontalAlignment="Center" Visibility="Hidden"/>
+				<TextBox x:Name="ItemCostInput" Height="23" TextWrapping="Wrap" Text="" Visibility="Hidden" TextChanged="InputVerification"/>
+				<Grid Height="43" Width="181" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Button x:Name="updateBtn" Content="Submit" Margin="0" IsEnabled="False" Click="updateBtn_Click"/>
+					<Button x:Name="cancelBtn" Content="Cancel" Grid.Column="1" Margin="0"/>
+				</Grid>
 			</StackPanel>
 		</Grid>
+		<Label x:Name="ErrorLabel" Content="Label" Margin="0" Grid.Row="2" FontSize="20" Foreground="#FFE60000" Visibility="Hidden"/>
 
 	</Grid>
 </Window>
