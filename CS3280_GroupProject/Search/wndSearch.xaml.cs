@@ -1,7 +1,9 @@
-﻿using System;
+﻿using CS3280_GroupProject.Search.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,7 +31,7 @@ namespace CS3280_GroupProject.Search
 
         public wndSearch()
         {
-            DataContext = new ViewModel.SearchViewModel();
+            DataContext = new SearchViewModel();
             InitializeComponent();
         }
 
@@ -65,8 +67,35 @@ namespace CS3280_GroupProject.Search
         /// <param name="e"></param>
         private void btnFilterResults_Click(object sender, RoutedEventArgs e)
         {
+            SearchViewModel viewModel = DataContext as SearchViewModel;
 
+            viewModel.FilteredInvoices = viewModel.Invoices;
 
+            
+
+            if (viewModel.TotalCharge >= 0)
+            {
+                viewModel.FilteredInvoices = (from invoice in viewModel.FilteredInvoices
+                                              where invoice.TotalCost == viewModel.TotalCharge
+                                              select invoice).ToList();
+            }
+
+            if (viewModel.InvoiceId != 0)
+            {
+                viewModel.FilteredInvoices = (from invoice in viewModel.FilteredInvoices
+                                             where invoice.ID == viewModel.InvoiceId
+                                             select invoice).ToList();
+            }
+        }
+
+        private static readonly Regex _regexValidateTotalCharge = new Regex("[^0-9.-]+");
+        private static bool IsTotalChargeTextAllowed(string text)
+        {
+            return !_regexValidateTotalCharge.IsMatch(text);
+        }
+        private void txtTotalCharge_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTotalChargeTextAllowed(e.Text);
         }
     }
 }

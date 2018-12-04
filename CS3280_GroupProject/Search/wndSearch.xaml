@@ -16,10 +16,7 @@
             <Setter Property="Margin" Value="5"/>
         </Style>
     </Window.Resources>
-    <Window.DataContext>
-        <view:SearchViewModel/>
-    </Window.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -39,7 +36,8 @@
                 <DataGrid x:Name="InvoiceDataGrid"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
-                          Margin="5">
+                          Margin="5"
+                          ItemsSource="{Binding FilteredInvoices}">
                     
                 </DataGrid>
             </Grid>
@@ -54,27 +52,35 @@
                         <Label Content="Invoice #:"/>
                         <ComboBox Width="150"
                                   ItemsSource="{Binding Invoices}"
-                                  SelectedItem="{Binding FilteredInvoices}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding InvoiceID}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
+                                  SelectedValuePath="ID"
+                                  SelectedValue="{Binding InvoiceId}"
+                                  DisplayMemberPath="ID">
                         </ComboBox>
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Invoice Date:"/>
-                        <ComboBox Width="150">
+                        <DatePicker x:Name="InvoiceDatePicker"
+                                    IsTodayHighlighted="True"
+                                    Width="150" 
+                                    SelectedDate="{Binding SelectedDate}">
 
-                        </ComboBox>
+                        </DatePicker>
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Total Charge:"/>
-                        <ComboBox Width="150">
+                        <TextBox x:Name="txtTotalCharge"
+                                 Width="150"
+                                 PreviewTextInput="txtTotalCharge_PreviewTextInput"
+                                 Text="{Binding TotalCharge}">
+                        </TextBox>
+                    </StackPanel>
 
-                        </ComboBox>
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="rdoNumber" Content="Filter Invoice Number"/>
+                        <CheckBox x:Name="rdoDate" Content="Filter Date"/>
+                        <CheckBox x:Name="rdoCharge" Content="Filter Total Charge"/>
                     </StackPanel>
 
                     <Button x:Name="btnFilterResults" Content="FILTER" Click="btnFilterResults_Click"/>

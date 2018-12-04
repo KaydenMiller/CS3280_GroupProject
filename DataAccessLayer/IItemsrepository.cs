@@ -26,11 +26,5 @@ namespace DataAccessLayer
         /// <param name="cost"></param>
         /// <returns></returns>
         IEnumerable<Item> GetItemByExactCost(float cost);
-
-		/// <summary>
-		/// Will Retrieve's ALL items currently in the database.
-		/// </summary>
-		/// <returns></returns>
-		IEnumerable<Item> GetItems();
     }
 }
