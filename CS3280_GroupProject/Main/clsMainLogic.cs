@@ -193,7 +193,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                totalCost = 0;
+                totalCost = price;
             }
             catch (Exception ex)
             {
