@@ -37,7 +37,8 @@
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
                           Margin="5"
-                          ItemsSource="{Binding FilteredInvoices}">
+                          ItemsSource="{Binding FilteredInvoices}"
+                          SelectedItem="{Binding SelectedInvoice}">
                     
                 </DataGrid>
             </Grid>
@@ -50,7 +51,8 @@
 
                     <StackPanel Style="{StaticResource StackPanel_Horizontal_Property}">
                         <Label Content="Invoice #:"/>
-                        <ComboBox Width="150"
+                        <ComboBox x:Name="cboInvoiceNumber"
+                                  Width="150"
                                   ItemsSource="{Binding Invoices}"
                                   SelectedValuePath="ID"
                                   SelectedValue="{Binding InvoiceId}"
@@ -78,14 +80,23 @@
                     </StackPanel>
 
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="rdoNumber" Content="Filter Invoice Number"/>
-                        <CheckBox x:Name="rdoDate" Content="Filter Date"/>
-                        <CheckBox x:Name="rdoCharge" Content="Filter Total Charge"/>
+                        <CheckBox x:Name="cbxNumber" 
+                                  Content="Filter Invoice Number"
+                                  IsChecked="{Binding InvoiceIdSelected}"/>
+                        <CheckBox x:Name="cbxDate" 
+                                  Content="Filter Date"
+                                  IsChecked="{Binding InvoiceDateSelected}"/>
+                        <CheckBox x:Name="cbxCharge" 
+                                  Content="Filter Total Charge"
+                                  IsChecked="{Binding InvoiceTotalChargeSelected}"/>
                     </StackPanel>
 
-                    <Button x:Name="btnFilterResults" Content="FILTER" Click="btnFilterResults_Click"/>
-                    <Button x:Name="btnClearSelection" Content="CLEAR SELECTION"/>
-                    <Button x:Name="btnSelectInvoice" Content="SELECT INVOICE"/>
+                    <Button x:Name="btnFilterResults" Content="FILTER" 
+                            Click="btnFilterResults_Click"/>
+                    <Button x:Name="btnClearSelection" Content="CLEAR SELECTION"
+                            Click="btnClearSelection_Click"/>
+                    <Button x:Name="btnSelectInvoice" Content="SELECT INVOICE"
+                            Click="btnSelectInvoice_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>

@@ -1,4 +1,5 @@
-﻿using CS3280_GroupProject.Search.ViewModel;
+﻿using BusinessLayer;
+using CS3280_GroupProject.Search.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace CS3280_GroupProject.Search
         /// </summary>
         private string selectedInvoice = "";
 
+        /// <summary>
+        /// init
+        /// </summary>
         public wndSearch()
         {
             DataContext = new SearchViewModel();
@@ -69,33 +73,93 @@ namespace CS3280_GroupProject.Search
         {
             SearchViewModel viewModel = DataContext as SearchViewModel;
 
-            viewModel.FilteredInvoices = viewModel.Invoices;
+            IEnumerable<Invoice> query = viewModel.Invoices;
 
-            
-
-            if (viewModel.TotalCharge >= 0)
+            if (viewModel.InvoiceTotalChargeSelected && viewModel.TotalCharge >= 0)
             {
-                viewModel.FilteredInvoices = (from invoice in viewModel.FilteredInvoices
-                                              where invoice.TotalCost == viewModel.TotalCharge
-                                              select invoice).ToList();
+                //viewModel.FilteredInvoices = clsSearchLogic.SearchOnPredicate((inv) => inv.TotalCost == viewModel.TotalCharge).ToList();
+                query = (from invoice in query
+                         where invoice.TotalCost == viewModel.TotalCharge
+                         select invoice).ToList();
             }
 
-            if (viewModel.InvoiceId != 0)
+            if (viewModel.InvoiceIdSelected && viewModel.InvoiceId != 0)
             {
-                viewModel.FilteredInvoices = (from invoice in viewModel.FilteredInvoices
-                                             where invoice.ID == viewModel.InvoiceId
-                                             select invoice).ToList();
+                query = (from invoice in query
+                         where invoice.ID == viewModel.InvoiceId
+                         select invoice).ToList();
             }
+
+            if (viewModel.InvoiceDateSelected)
+            {
+                query = (from invoice in query
+                         where invoice.Date == viewModel.SelectedDate
+                         select invoice).ToList();
+            }
+
+            viewModel.FilteredInvoices = query.ToList();
         }
 
+        /// <summary>
+        /// Regular Expression to validate text input
+        /// </summary>
         private static readonly Regex _regexValidateTotalCharge = new Regex("[^0-9.-]+");
+        /// <summary>
+        /// validation function
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private static bool IsTotalChargeTextAllowed(string text)
         {
             return !_regexValidateTotalCharge.IsMatch(text);
         }
+        /// <summary>
+        /// Preview Text function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtTotalCharge_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTotalChargeTextAllowed(e.Text);
+        }
+
+        /// <summary>
+        /// Clear function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearSelection_Click(object sender, RoutedEventArgs e)
+        {
+            SearchViewModel viewModel = DataContext as SearchViewModel;
+
+            viewModel.FilteredInvoices = new List<BusinessLayer.Invoice>();
+            viewModel.InvoiceId = 0;
+            viewModel.TotalCharge = 0;
+            viewModel.SelectedDate = DateTime.Today;
+
+            cboInvoiceNumber.SelectedItem = null;
+            txtTotalCharge.Text = "";
+            cbxCharge.IsChecked = false;
+            cbxDate.IsChecked = false;
+            cbxNumber.IsChecked = false;
+        }
+
+        /// <summary>
+        /// Select Invoice Function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            SearchViewModel viewModel = DataContext as SearchViewModel;
+
+            if (viewModel.SelectedInvoice != null)
+            {
+                selected_Invoice = viewModel.SelectedInvoice.ID.ToString();
+
+                // Close the window as it is no longer needed
+                Close();
+            }
         }
     }
 }

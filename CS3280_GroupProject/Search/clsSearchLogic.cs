@@ -9,19 +9,17 @@ using System.Linq.Expressions;
 
 namespace CS3280_GroupProject.Search
 {
-    class clsSearchLogic
+    /// <summary>
+    /// Search Logic class
+    /// </summary>
+    public static class clsSearchLogic
     {
-        public clsSearchLogic()
-        {
-            
-        }
-
         /// <summary>
         /// Searches for an invoices with a specific invoiceID
         /// </summary>
         /// <param name="InvoiceID"></param>
         /// <returns></returns>
-        public Invoice SearchByID(int InvoiceID)
+        public static Invoice SearchByID(int InvoiceID)
         {
             return InvoiceManager.InvoiceRepository.Get(InvoiceID);
         }
@@ -31,7 +29,7 @@ namespace CS3280_GroupProject.Search
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public IEnumerable<Invoice> SearchByDate(DateTime date)
+        public static IEnumerable<Invoice> SearchByDate(DateTime date)
         {
             return InvoiceManager.InvoiceRepository.GetInvoicesByDate(date);
         }
@@ -41,7 +39,7 @@ namespace CS3280_GroupProject.Search
         /// </summary>
         /// <param name="charge"></param>
         /// <returns></returns>
-        public IEnumerable<Invoice> SearchByCharge(int charge)
+        public static IEnumerable<Invoice> SearchByCharge(int charge)
         {
             return InvoiceManager.InvoiceRepository.GetInvoicesByTotalCost(charge);
         }
@@ -51,7 +49,7 @@ namespace CS3280_GroupProject.Search
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>All invoices that match the predicates expression</returns>
-        public IEnumerable<Invoice> SearchOnPredicate(Expression<Func<Invoice, bool>> predicate)
+        public static IEnumerable<Invoice> SearchOnPredicate(Expression<Func<Invoice, bool>> predicate)
         {
             List<Invoice> filteredInvoices = new List<Invoice>();
 
