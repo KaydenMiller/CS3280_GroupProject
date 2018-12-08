@@ -110,7 +110,7 @@ namespace CS3280_GroupProject.Main
                         "(SELECT MAX(InvoiceNum) FROM Invoices)";
                 }
                 //Else get a particular invoice
-                return "SELECT InvoiceNum, InvoiceDate " +
+                return "SELECT InvoiceNum, InvoiceDate , TotalCost" + 
                         "FROM Invoices " +
                         "WHERE InvoiceNum = " + invoiceNum.ToString();
             }
@@ -166,13 +166,13 @@ namespace CS3280_GroupProject.Main
         /// <param name="invoiceNum">invoiceNum</param>
         /// <param name="date">date</param>
         /// <returns>String sql</returns>
-        public string updateInvoiceDate(string invoiceNum, string date)
+        public string updateInvoiceTotal(string total)
         {
             try
             {
-                return "UPDATE INVOICES " +
-                        "SET InvoiceDate = \"" + date.ToString() + "\" " +
-                        "WHERE invoiceNum = " + invoiceNum;
+                return "INSERT INTO Invoices (TotalCost) " +
+                    "VALUES (\"" + total + "\")";
+                        
             }
             catch (Exception ex)
             {

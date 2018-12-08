@@ -318,6 +318,7 @@ namespace CS3280_GroupProject.Main
                     newInvoiceButton.IsEnabled = true;
                     editButton.IsEnabled = true;
                     saveMsgLabel.Visibility = Visibility.Visible;
+                    clsMain.setTotalCost(clsMain.getTotalCost());
                 }
             }
             catch (Exception ex)
