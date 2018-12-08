@@ -77,16 +77,16 @@ namespace CS3280_GroupProject.Main
         }
 
         /// <summary>
-        /// This sql method outputs new invoice date to the Invoice table.
+        /// This sql method outputs new invoice date and total to the Invoice table.
         /// </summary>
         /// <param name="date">String date</param>
         /// <returns>String sql</returns>
-        public string putInvoiceDate(string date)
+        public string putInvoiceDate(string date, string total)
         {
             try
             {
-                return "INSERT INTO Invoices (InvoiceDate) " +
-                        "VALUES (\"" + date.ToString() + "\")";
+                return "INSERT INTO Invoices (InvoiceDate, TotalCost) " +
+                        "VALUES (\"" + date.ToString() + ", " + total + "\")";
             }
             catch (Exception ex)
             {
@@ -161,24 +161,26 @@ namespace CS3280_GroupProject.Main
         }
 
         /// <summary>
-        /// This method is used to update the date of an invoice using the invoice number and date on record
+        /// This method is used to update the date of an invoice using the 
+        /// invoice number and date on record
         /// </summary>
         /// <param name="invoiceNum">invoiceNum</param>
         /// <param name="date">date</param>
         /// <returns>String sql</returns>
-        public string updateInvoiceTotal(string total)
-        {
-            try
-            {
-                return "INSERT INTO Invoices (TotalCost) " +
-                    "VALUES (\"" + total + "\")";
+        //public string updateInvoiceTotal(string total)
+        //{
+        //    try
+        //    {
+        //        return "INSERT INTO Invoices (TotalCost) " +
+        //            "VALUES (\"" + total + "\")";
                         
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+        //            MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// This method delete the items from the lineitem table.
@@ -212,7 +214,8 @@ namespace CS3280_GroupProject.Main
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 

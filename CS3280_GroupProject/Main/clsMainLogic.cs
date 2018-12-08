@@ -173,18 +173,18 @@ namespace CS3280_GroupProject.Main
         /// This method updates the total cost
         /// </summary>
         /// <returns></returns>
-        public void setTotalCost(string total)
-        {
-            try
-            {
-                SQLIns.updateInvoiceTotal(total.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
+        //public void setTotalCost(string total)
+        //{
+        //    try
+        //    {
+        //        SQLIns.updateInvoiceTotal(total.ToString());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+        //            MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// This method gets the invoice number to be displayed
@@ -331,11 +331,11 @@ namespace CS3280_GroupProject.Main
         /// This method inserts the date into the db.
         /// </summary>
         /// <param name="date">date</param>
-        public void insertDate(string date)
+        public void insertDate(string date, string total)
         {
             try
             {
-                mainQuery = SQLIns.putInvoiceDate(date); 
+                mainQuery = SQLIns.putInvoiceDate(date, total); 
                 int numRows = query.ExecuteNonQuery(mainQuery);
             }
             catch (Exception ex)
