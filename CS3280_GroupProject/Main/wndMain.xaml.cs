@@ -41,6 +41,11 @@ namespace CS3280_GroupProject.Main
         ///</summary>
         bool dateSelect = false;
 
+        ///<summary>
+        ///To know if there is an edit
+        ///</summary>
+        bool isEdited = false;
+
         /// <summary>
         /// This constructor initialises form and fill the grid with the hightest invoice number
         /// </summary>
@@ -291,7 +296,7 @@ namespace CS3280_GroupProject.Main
                     //populate the grid
                     if (InvoiceNoBox.Content.ToString() == "TBD")
                     {
-                        
+                        clsMain.insertDate(data, clsMain.getTotalCost());
                         string newInvoice = clsMain.newInvoice("");
                         clsMain.setInvoiceNum(newInvoice);
                         InvoiceNoBox.Content = clsMain.getInvoiceNum();
@@ -318,8 +323,9 @@ namespace CS3280_GroupProject.Main
                     newInvoiceButton.IsEnabled = true;
                     editButton.IsEnabled = true;
                     saveMsgLabel.Visibility = Visibility.Visible;
-                    //clsMain.setTotalCost(clsMain.getTotalCost());
-                    clsMain.insertDate(data, clsMain.getTotalCost());
+                    if (isEdited){ clsMain.setTotalCost(); }
+                    
+                    
                 }
             }
             catch (Exception ex)
@@ -390,6 +396,7 @@ namespace CS3280_GroupProject.Main
                 editButton.IsEnabled = false;
                 deleteMsgLabel.Visibility = Visibility.Hidden;
                 saveMsgLabel.Visibility = Visibility.Hidden;
+                isEdited = true;
 
                 //populate the combo box with items 
                 List<string> list = clsMain.getItems();

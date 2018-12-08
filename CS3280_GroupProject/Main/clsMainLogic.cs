@@ -165,7 +165,8 @@ namespace CS3280_GroupProject.Main
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -173,18 +174,18 @@ namespace CS3280_GroupProject.Main
         /// This method updates the total cost
         /// </summary>
         /// <returns></returns>
-        //public void setTotalCost(string total)
-        //{
-        //    try
-        //    {
-        //        SQLIns.updateInvoiceTotal(total.ToString());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-        //            MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        //    }
-        //}
+        public void setTotalCost()
+        {
+            try
+            {
+                SQLIns.updateInvoiceTotal(invoiceNum, totalCost.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
         /// <summary>
         /// This method gets the invoice number to be displayed

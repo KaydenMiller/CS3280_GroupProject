@@ -167,20 +167,21 @@ namespace CS3280_GroupProject.Main
         /// <param name="invoiceNum">invoiceNum</param>
         /// <param name="date">date</param>
         /// <returns>String sql</returns>
-        //public string updateInvoiceTotal(string total)
-        //{
-        //    try
-        //    {
-        //        return "INSERT INTO Invoices (TotalCost) " +
-        //            "VALUES (\"" + total + "\")";
-                        
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
-        //            MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        //    }
-        //}
+        public string updateInvoiceTotal(string invoiceNum, string total)
+        {
+            try
+            {
+                return "UPDATE Invoices  " +
+                    "SET TotalCost = '" + total + "' " +
+                    "WHERE InvoiceNum = " + invoiceNum + "";
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
         /// <summary>
         /// This method delete the items from the lineitem table.
