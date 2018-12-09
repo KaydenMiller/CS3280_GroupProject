@@ -85,7 +85,7 @@ namespace CS3280_GroupProject.Main
             {
                 SQLIns = new clsMainSQL();
                 query = new clsDataAccess(); //creating Instance of DataAccess class
-                invoiceNum = newInvoice("");
+                invoiceNum = loadInvoice("");
                 int iRet = 0;
                 mainQuery = SQLIns.getInvoiceItems(invoiceNum); //obtains the items of an invoice
                 queryResult = query.ExecuteSQLStatement(mainQuery, ref iRet);
@@ -126,15 +126,15 @@ namespace CS3280_GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum">String invoiceNum</param>
         /// <returns></returns>
-        public string newInvoice(string invoiceNum)
+        public string loadInvoice(string invoiceNum)
         {
             try
             {
                 mainQuery = SQLIns.getInvoice(invoiceNum);
                 int iRet = 0;  //the rows to return
-                               
+
                 queryResult = query.ExecuteSQLStatement(mainQuery, ref iRet); //get the invoice number and invoice date
-                date = (DateTime)queryResult.Tables[0].Rows[0][1]; 
+                date = (DateTime)queryResult.Tables[0].Rows[0][1];
                 invoiceNum = queryResult.Tables[0].Rows[0][0].ToString();
 
                 iRet = 0;
@@ -143,7 +143,7 @@ namespace CS3280_GroupProject.Main
                 itemList = new List<string>();
                 for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
                 {
-                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + 
+                    itemList.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " +
                         queryResult.Tables[0].Rows[i].ItemArray[1].ToString());
                 }
                 //Gets all items using the invoice number
@@ -153,7 +153,7 @@ namespace CS3280_GroupProject.Main
                 invoiceResult = queryResult; //put into dataset 
                 for (int i = 0; i < queryResult.Tables[0].Rows.Count; i++)
                 {
-                    invoiceItem.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " + 
+                    invoiceItem.Add(queryResult.Tables[0].Rows[i][0].ToString() + " : " +
                         queryResult.Tables[0].Rows[i].ItemArray[1].ToString()
                         + " : " + queryResult.Tables[0].Rows[i].ItemArray[2].ToString());
                     if (decimal.TryParse(queryResult.Tables[0].Rows[i].ItemArray[2].ToString(), out decimal price))
@@ -165,7 +165,7 @@ namespace CS3280_GroupProject.Main
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
@@ -174,11 +174,11 @@ namespace CS3280_GroupProject.Main
         /// This method updates the total cost
         /// </summary>
         /// <returns></returns>
-        public void setTotalCost()
+        public void setTotalCost(string num, string total)
         {
             try
             {
-                SQLIns.updateInvoiceTotal(invoiceNum, totalCost.ToString());
+                 SQLIns.updateInvoiceTotal(num, total.ToString());
             }
             catch (Exception ex)
             {
@@ -373,7 +373,8 @@ namespace CS3280_GroupProject.Main
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 

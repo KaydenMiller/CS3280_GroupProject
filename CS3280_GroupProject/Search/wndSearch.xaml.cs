@@ -155,7 +155,7 @@ namespace CS3280_GroupProject.Search
 
             if (viewModel.SelectedInvoice != null)
             {
-                selected_Invoice = viewModel.SelectedInvoice.ID.ToString();
+                selectedInvoice = viewModel.SelectedInvoice.ID.ToString();
 
                 // Close the window as it is no longer needed
                 Close();

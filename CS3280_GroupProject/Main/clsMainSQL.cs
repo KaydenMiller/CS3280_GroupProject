@@ -85,8 +85,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                return "INSERT INTO Invoices (InvoiceDate, TotalCost) " +
-                        "VALUES (\"" + date.ToString() + ", " + total + "\")";
+                return "INSERT INTO Invoices (InvoiceDate, TotalCost) VALUES (#" + date.ToString() + "#, " + total + ")";
             }
             catch (Exception ex)
             {
@@ -110,7 +109,7 @@ namespace CS3280_GroupProject.Main
                         "(SELECT MAX(InvoiceNum) FROM Invoices)";
                 }
                 //Else get a particular invoice
-                return "SELECT InvoiceNum, InvoiceDate , TotalCost" + 
+                return "SELECT InvoiceNum, InvoiceDate " + 
                         "FROM Invoices " +
                         "WHERE InvoiceNum = " + invoiceNum.ToString();
             }
@@ -171,9 +170,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                return "UPDATE Invoices  " +
-                    "SET TotalCost = '" + total + "' " +
-                    "WHERE InvoiceNum = " + invoiceNum + "";
+                return "UPDATE Invoices SET TotalCost = '" + total + "' WHERE InvoiceNum = '" + invoiceNum + "'";
 
             }
             catch (Exception ex)

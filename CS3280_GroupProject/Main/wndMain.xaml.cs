@@ -145,7 +145,7 @@ namespace CS3280_GroupProject.Main
                 {
                     string isInvoice = wndSearch.selected_Invoice;
                     clsMain.setCost(0); //Reset cost 
-                    clsMain.newInvoice(isInvoice);
+                    clsMain.loadInvoice(isInvoice);
                     clsMain.setInvoiceNum(isInvoice); //Fixes a bug I ran into
                     currInvoiceDataGrid.ItemsSource = clsMain.getData();
                     DateTime d = clsMain.getDate();
@@ -297,7 +297,7 @@ namespace CS3280_GroupProject.Main
                     if (InvoiceNoBox.Content.ToString() == "TBD")
                     {
                         clsMain.insertDate(data, clsMain.getTotalCost());
-                        string newInvoice = clsMain.newInvoice("");
+                        string newInvoice = clsMain.loadInvoice("");
                         clsMain.setInvoiceNum(newInvoice);
                         InvoiceNoBox.Content = clsMain.getInvoiceNum();
                     }
@@ -323,7 +323,7 @@ namespace CS3280_GroupProject.Main
                     newInvoiceButton.IsEnabled = true;
                     editButton.IsEnabled = true;
                     saveMsgLabel.Visibility = Visibility.Visible;
-                    if (isEdited){ clsMain.setTotalCost(); }
+                    if (isEdited){ clsMain.setTotalCost(InvoiceNoBox.Content.ToString(), clsMain.getTotalCost()); }
                     
                     
                 }
