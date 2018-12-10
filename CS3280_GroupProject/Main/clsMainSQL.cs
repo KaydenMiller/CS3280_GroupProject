@@ -170,7 +170,7 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                return "UPDATE Invoices SET TotalCost = '" + total + "' WHERE InvoiceNum = '" + invoiceNum + "'";
+                return "UPDATE Invoices SET TotalCost = " + total + " WHERE InvoiceNum = " + invoiceNum ;
 
             }
             catch (Exception ex)

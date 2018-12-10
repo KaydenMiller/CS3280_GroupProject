@@ -178,7 +178,9 @@ namespace CS3280_GroupProject.Main
         {
             try
             {
-                 SQLIns.updateInvoiceTotal(num, total.ToString());
+                mainQuery = SQLIns.updateInvoiceTotal(num, total.ToString());
+                int numRows = query.ExecuteNonQuery(mainQuery);
+
             }
             catch (Exception ex)
             {
